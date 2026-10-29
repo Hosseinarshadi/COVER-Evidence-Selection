@@ -1,0 +1,7 @@
+scenario,truth,n_state_reps,chance_diagnostic_rate,a2_diagnostic_rate,a3_diagnostic_rate,a3_minus_a2,same_pick_rate,a2_invalid_picks,a2_mean_delta_p_true,a3_mean_delta_p_true,true_label_hypothesis_rate,mean_missing_predictions,mean_calibration_logloss
+SC-01,malicious,10,0.298,1.0,1.0,0.0,0.7,0,0.4158,0.4023,1.0,0.0,0.483
+SC-02,benign,10,0.452,0.8,0.6,-0.2,0.6,0,0.1862,0.1526,1.0,0.0,0.716
+SC-03,malicious,10,0.452,0.5,0.5,0.0,1.0,0,0.3143,0.3143,1.0,0.0,0.501
+SC-04,benign,10,0.619,1.0,1.0,0.0,0.6,0,0.3762,0.3571,1.0,0.0,0.486
+SC-05,malicious,10,0.598,1.0,1.0,0.0,0.5,0,0.4145,0.436,1.0,0.0,0.459
+SC-06,benign,10,0.619,1.0,1.0,0.0,0.4,0,0.3437,0.3747,1.0,0.0,0.573

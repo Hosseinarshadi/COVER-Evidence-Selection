@@ -1,0 +1,28 @@
+{
+  "started_utc": "2026-10-21T04:59:39.689560+00:00",
+  "model": "claude-sonnet-5-5",
+  "fake": false,
+  "pilot": false,
+  "thinking": "between_tools",
+  "temperature": "model default (not sent)",
+  "tool_choice": "auto, strict tools",
+  "reps": 5,
+  "cost_weighted": true,
+  "max_tokens": 6000,
+  "max_cost_usd": 4.5,
+  "prices_per_mtok": [
+    2.0,
+    10.0
+  ],
+  "unvalidated_scenarios": [],
+  "script_sha256": "caf8999d186b6e5669fd3b04f1787f411485e15f73a6b023b72e48655afbb0b4",
+  "scenarios_sha256": "bfcda443c4aeb8000dbb72e3ddced20fe10c18c31d020bf604d2cb225b7b5809",
+  "scenarios_source": "embedded in script",
+  "python": "3.13.14",
+  "finished_utc": "2026-10-21T05:20:27.176213+00:00",
+  "spent_usd": 2.717,
+  "state_reps_planned": 60,
+  "failed_state_reps": 0,
+  "stopped_early_for_budget": false,
+  "fatal_api_error": null
+}
