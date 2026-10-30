@@ -1,0 +1,1862 @@
+[
+ {
+  "id": "AIT-01",
+  "trigger": "AMiner: High entropy in Apache Access request. on host intranet_server (IP in alert: 172.21.241.88).",
+  "initial_evidence": [
+   "Detector family: AMiner",
+   "Host name: intranet_server",
+   "Environment: small enterprise network (web, mail, file share, VPN, DNS, firewall, monitoring)"
+  ],
+  "queries": {
+   "Q1": {
+    "description": "Count other alerts from the same host in the 10 minutes before and after this alert",
+    "outcomes": [
+     "none",
+     "1_to_20",
+     "more_than_20"
+    ],
+    "cost": 1
+   },
+   "Q2": {
+    "description": "Check how often this alert type fired on this host in the previous 24 hours",
+    "outcomes": [
+     "never",
+     "1_to_10_times",
+     "more_than_10_times"
+    ],
+    "cost": 2
+   },
+   "Q3": {
+    "description": "Check whether a different detector family (Wazuh, Suricata or AMiner) alerted on this host within 10 minutes",
+    "outcomes": [
+     "yes",
+     "no"
+    ],
+    "cost": 1
+   },
+   "Q4": {
+    "description": "Check whether the same alert type fired on other hosts within 30 minutes",
+    "outcomes": [
+     "only_this_host",
+     "other_hosts_too"
+    ],
+    "cost": 1
+   },
+   "Q5": {
+    "description": "Check whether the same IP address appears in alerts on other hosts within 30 minutes",
+    "outcomes": [
+     "yes",
+     "no"
+    ],
+    "cost": 1
+   },
+   "Q6": {
+    "description": "Check whether this host raised alert types it had not raised in the previous 24 hours, within 30 minutes of this alert",
+    "outcomes": [
+     "yes",
+     "no"
+    ],
+    "cost": 2
+   },
+   "Q7": {
+    "description": "Count distinct alert types on this host within 10 minutes of this alert",
+    "outcomes": [
+     "one",
+     "two_to_four",
+     "five_or_more"
+    ],
+    "cost": 1
+   },
+   "Q8": {
+    "description": "Check whether the alert fired outside business hours (08:00-18:00 UTC)",
+    "outcomes": [
+     "business_hours",
+     "outside_business_hours"
+    ],
+    "cost": 1
+   }
+  },
+  "states": [
+   {
+    "id": "s0",
+    "observed": []
+   },
+   {
+    "id": "s1",
+    "observed": [
+     {
+      "query_id": "Q8",
+      "outcome": "business_hours"
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "id": "AIT-02",
+  "trigger": "AMiner: Unusual occurrence frequencies of query records in DNS logs. on host inet-firewall (IP in alert: 172.27.180.4).",
+  "initial_evidence": [
+   "Detector family: AMiner",
+   "Host name: inet-firewall",
+   "Environment: small enterprise network (web, mail, file share, VPN, DNS, firewall, monitoring)"
+  ],
+  "queries": {
+   "Q1": {
+    "description": "Count other alerts from the same host in the 10 minutes before and after this alert",
+    "outcomes": [
+     "none",
+     "1_to_20",
+     "more_than_20"
+    ],
+    "cost": 1
+   },
+   "Q2": {
+    "description": "Check how often this alert type fired on this host in the previous 24 hours",
+    "outcomes": [
+     "never",
+     "1_to_10_times",
+     "more_than_10_times"
+    ],
+    "cost": 2
+   },
+   "Q3": {
+    "description": "Check whether a different detector family (Wazuh, Suricata or AMiner) alerted on this host within 10 minutes",
+    "outcomes": [
+     "yes",
+     "no"
+    ],
+    "cost": 1
+   },
+   "Q4": {
+    "description": "Check whether the same alert type fired on other hosts within 30 minutes",
+    "outcomes": [
+     "only_this_host",
+     "other_hosts_too"
+    ],
+    "cost": 1
+   },
+   "Q5": {
+    "description": "Check whether the same IP address appears in alerts on other hosts within 30 minutes",
+    "outcomes": [
+     "yes",
+     "no"
+    ],
+    "cost": 1
+   },
+   "Q6": {
+    "description": "Check whether this host raised alert types it had not raised in the previous 24 hours, within 30 minutes of this alert",
+    "outcomes": [
+     "yes",
+     "no"
+    ],
+    "cost": 2
+   },
+   "Q7": {
+    "description": "Count distinct alert types on this host within 10 minutes of this alert",
+    "outcomes": [
+     "one",
+     "two_to_four",
+     "five_or_more"
+    ],
+    "cost": 1
+   },
+   "Q8": {
+    "description": "Check whether the alert fired outside business hours (08:00-18:00 UTC)",
+    "outcomes": [
+     "business_hours",
+     "outside_business_hours"
+    ],
+    "cost": 1
+   }
+  },
+  "states": [
+   {
+    "id": "s0",
+    "observed": []
+   },
+   {
+    "id": "s1",
+    "observed": [
+     {
+      "query_id": "Q8",
+      "outcome": "outside_business_hours"
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "id": "AIT-03",
+  "trigger": "Suricata: Alert - SURICATA TLS invalid record/traffic on host vpn (IP in alert: 172.17.130.196).",
+  "initial_evidence": [
+   "Detector family: Suricata",
+   "Host name: vpn",
+   "Environment: small enterprise network (web, mail, file share, VPN, DNS, firewall, monitoring)"
+  ],
+  "queries": {
+   "Q1": {
+    "description": "Count other alerts from the same host in the 10 minutes before and after this alert",
+    "outcomes": [
+     "none",
+     "1_to_20",
+     "more_than_20"
+    ],
+    "cost": 1
+   },
+   "Q2": {
+    "description": "Check how often this alert type fired on this host in the previous 24 hours",
+    "outcomes": [
+     "never",
+     "1_to_10_times",
+     "more_than_10_times"
+    ],
+    "cost": 2
+   },
+   "Q3": {
+    "description": "Check whether a different detector family (Wazuh, Suricata or AMiner) alerted on this host within 10 minutes",
+    "outcomes": [
+     "yes",
+     "no"
+    ],
+    "cost": 1
+   },
+   "Q4": {
+    "description": "Check whether the same alert type fired on other hosts within 30 minutes",
+    "outcomes": [
+     "only_this_host",
+     "other_hosts_too"
+    ],
+    "cost": 1
+   },
+   "Q5": {
+    "description": "Check whether the same IP address appears in alerts on other hosts within 30 minutes",
+    "outcomes": [
+     "yes",
+     "no"
+    ],
+    "cost": 1
+   },
+   "Q6": {
+    "description": "Check whether this host raised alert types it had not raised in the previous 24 hours, within 30 minutes of this alert",
+    "outcomes": [
+     "yes",
+     "no"
+    ],
+    "cost": 2
+   },
+   "Q7": {
+    "description": "Count distinct alert types on this host within 10 minutes of this alert",
+    "outcomes": [
+     "one",
+     "two_to_four",
+     "five_or_more"
+    ],
+    "cost": 1
+   },
+   "Q8": {
+    "description": "Check whether the alert fired outside business hours (08:00-18:00 UTC)",
+    "outcomes": [
+     "business_hours",
+     "outside_business_hours"
+    ],
+    "cost": 1
+   }
+  },
+  "states": [
+   {
+    "id": "s0",
+    "observed": []
+   },
+   {
+    "id": "s1",
+    "observed": [
+     {
+      "query_id": "Q8",
+      "outcome": "business_hours"
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "id": "AIT-04",
+  "trigger": "AMiner: New event type. on host mail (IP in alert: 10.237.2.255).",
+  "initial_evidence": [
+   "Detector family: AMiner",
+   "Host name: mail",
+   "Environment: small enterprise network (web, mail, file share, VPN, DNS, firewall, monitoring)"
+  ],
+  "queries": {
+   "Q1": {
+    "description": "Count other alerts from the same host in the 10 minutes before and after this alert",
+    "outcomes": [
+     "none",
+     "1_to_20",
+     "more_than_20"
+    ],
+    "cost": 1
+   },
+   "Q2": {
+    "description": "Check how often this alert type fired on this host in the previous 24 hours",
+    "outcomes": [
+     "never",
+     "1_to_10_times",
+     "more_than_10_times"
+    ],
+    "cost": 2
+   },
+   "Q3": {
+    "description": "Check whether a different detector family (Wazuh, Suricata or AMiner) alerted on this host within 10 minutes",
+    "outcomes": [
+     "yes",
+     "no"
+    ],
+    "cost": 1
+   },
+   "Q4": {
+    "description": "Check whether the same alert type fired on other hosts within 30 minutes",
+    "outcomes": [
+     "only_this_host",
+     "other_hosts_too"
+    ],
+    "cost": 1
+   },
+   "Q5": {
+    "description": "Check whether the same IP address appears in alerts on other hosts within 30 minutes",
+    "outcomes": [
+     "yes",
+     "no"
+    ],
+    "cost": 1
+   },
+   "Q6": {
+    "description": "Check whether this host raised alert types it had not raised in the previous 24 hours, within 30 minutes of this alert",
+    "outcomes": [
+     "yes",
+     "no"
+    ],
+    "cost": 2
+   },
+   "Q7": {
+    "description": "Count distinct alert types on this host within 10 minutes of this alert",
+    "outcomes": [
+     "one",
+     "two_to_four",
+     "five_or_more"
+    ],
+    "cost": 1
+   },
+   "Q8": {
+    "description": "Check whether the alert fired outside business hours (08:00-18:00 UTC)",
+    "outcomes": [
+     "business_hours",
+     "outside_business_hours"
+    ],
+    "cost": 1
+   }
+  },
+  "states": [
+   {
+    "id": "s0",
+    "observed": []
+   },
+   {
+    "id": "s1",
+    "observed": [
+     {
+      "query_id": "Q8",
+      "outcome": "outside_business_hours"
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "id": "AIT-05",
+  "trigger": "Wazuh: Multiple web server 400 error codes from same source ip. on host intranet_server (IP in alert: 192.168.131.215).",
+  "initial_evidence": [
+   "Detector family: Wazuh",
+   "Host name: intranet_server",
+   "Environment: small enterprise network (web, mail, file share, VPN, DNS, firewall, monitoring)"
+  ],
+  "queries": {
+   "Q1": {
+    "description": "Count other alerts from the same host in the 10 minutes before and after this alert",
+    "outcomes": [
+     "none",
+     "1_to_20",
+     "more_than_20"
+    ],
+    "cost": 1
+   },
+   "Q2": {
+    "description": "Check how often this alert type fired on this host in the previous 24 hours",
+    "outcomes": [
+     "never",
+     "1_to_10_times",
+     "more_than_10_times"
+    ],
+    "cost": 2
+   },
+   "Q3": {
+    "description": "Check whether a different detector family (Wazuh, Suricata or AMiner) alerted on this host within 10 minutes",
+    "outcomes": [
+     "yes",
+     "no"
+    ],
+    "cost": 1
+   },
+   "Q4": {
+    "description": "Check whether the same alert type fired on other hosts within 30 minutes",
+    "outcomes": [
+     "only_this_host",
+     "other_hosts_too"
+    ],
+    "cost": 1
+   },
+   "Q5": {
+    "description": "Check whether the same IP address appears in alerts on other hosts within 30 minutes",
+    "outcomes": [
+     "yes",
+     "no"
+    ],
+    "cost": 1
+   },
+   "Q6": {
+    "description": "Check whether this host raised alert types it had not raised in the previous 24 hours, within 30 minutes of this alert",
+    "outcomes": [
+     "yes",
+     "no"
+    ],
+    "cost": 2
+   },
+   "Q7": {
+    "description": "Count distinct alert types on this host within 10 minutes of this alert",
+    "outcomes": [
+     "one",
+     "two_to_four",
+     "five_or_more"
+    ],
+    "cost": 1
+   },
+   "Q8": {
+    "description": "Check whether the alert fired outside business hours (08:00-18:00 UTC)",
+    "outcomes": [
+     "business_hours",
+     "outside_business_hours"
+    ],
+    "cost": 1
+   }
+  },
+  "states": [
+   {
+    "id": "s0",
+    "observed": []
+   },
+   {
+    "id": "s1",
+    "observed": [
+     {
+      "query_id": "Q8",
+      "outcome": "outside_business_hours"
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "id": "AIT-06",
+  "trigger": "Wazuh: CMS (WordPress or Joomla) login attempt. on host intranet_server (IP in alert: 172.26.243.167).",
+  "initial_evidence": [
+   "Detector family: Wazuh",
+   "Host name: intranet_server",
+   "Environment: small enterprise network (web, mail, file share, VPN, DNS, firewall, monitoring)"
+  ],
+  "queries": {
+   "Q1": {
+    "description": "Count other alerts from the same host in the 10 minutes before and after this alert",
+    "outcomes": [
+     "none",
+     "1_to_20",
+     "more_than_20"
+    ],
+    "cost": 1
+   },
+   "Q2": {
+    "description": "Check how often this alert type fired on this host in the previous 24 hours",
+    "outcomes": [
+     "never",
+     "1_to_10_times",
+     "more_than_10_times"
+    ],
+    "cost": 2
+   },
+   "Q3": {
+    "description": "Check whether a different detector family (Wazuh, Suricata or AMiner) alerted on this host within 10 minutes",
+    "outcomes": [
+     "yes",
+     "no"
+    ],
+    "cost": 1
+   },
+   "Q4": {
+    "description": "Check whether the same alert type fired on other hosts within 30 minutes",
+    "outcomes": [
+     "only_this_host",
+     "other_hosts_too"
+    ],
+    "cost": 1
+   },
+   "Q5": {
+    "description": "Check whether the same IP address appears in alerts on other hosts within 30 minutes",
+    "outcomes": [
+     "yes",
+     "no"
+    ],
+    "cost": 1
+   },
+   "Q6": {
+    "description": "Check whether this host raised alert types it had not raised in the previous 24 hours, within 30 minutes of this alert",
+    "outcomes": [
+     "yes",
+     "no"
+    ],
+    "cost": 2
+   },
+   "Q7": {
+    "description": "Count distinct alert types on this host within 10 minutes of this alert",
+    "outcomes": [
+     "one",
+     "two_to_four",
+     "five_or_more"
+    ],
+    "cost": 1
+   },
+   "Q8": {
+    "description": "Check whether the alert fired outside business hours (08:00-18:00 UTC)",
+    "outcomes": [
+     "business_hours",
+     "outside_business_hours"
+    ],
+    "cost": 1
+   }
+  },
+  "states": [
+   {
+    "id": "s0",
+    "observed": []
+   },
+   {
+    "id": "s1",
+    "observed": [
+     {
+      "query_id": "Q8",
+      "outcome": "outside_business_hours"
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "id": "AIT-07",
+  "trigger": "Suricata: Alert - SURICATA HTTP unable to match response to request on host inet-firewall (IP in alert: 10.35.32.1).",
+  "initial_evidence": [
+   "Detector family: Suricata",
+   "Host name: inet-firewall",
+   "Environment: small enterprise network (web, mail, file share, VPN, DNS, firewall, monitoring)"
+  ],
+  "queries": {
+   "Q1": {
+    "description": "Count other alerts from the same host in the 10 minutes before and after this alert",
+    "outcomes": [
+     "none",
+     "1_to_20",
+     "more_than_20"
+    ],
+    "cost": 1
+   },
+   "Q2": {
+    "description": "Check how often this alert type fired on this host in the previous 24 hours",
+    "outcomes": [
+     "never",
+     "1_to_10_times",
+     "more_than_10_times"
+    ],
+    "cost": 2
+   },
+   "Q3": {
+    "description": "Check whether a different detector family (Wazuh, Suricata or AMiner) alerted on this host within 10 minutes",
+    "outcomes": [
+     "yes",
+     "no"
+    ],
+    "cost": 1
+   },
+   "Q4": {
+    "description": "Check whether the same alert type fired on other hosts within 30 minutes",
+    "outcomes": [
+     "only_this_host",
+     "other_hosts_too"
+    ],
+    "cost": 1
+   },
+   "Q5": {
+    "description": "Check whether the same IP address appears in alerts on other hosts within 30 minutes",
+    "outcomes": [
+     "yes",
+     "no"
+    ],
+    "cost": 1
+   },
+   "Q6": {
+    "description": "Check whether this host raised alert types it had not raised in the previous 24 hours, within 30 minutes of this alert",
+    "outcomes": [
+     "yes",
+     "no"
+    ],
+    "cost": 2
+   },
+   "Q7": {
+    "description": "Count distinct alert types on this host within 10 minutes of this alert",
+    "outcomes": [
+     "one",
+     "two_to_four",
+     "five_or_more"
+    ],
+    "cost": 1
+   },
+   "Q8": {
+    "description": "Check whether the alert fired outside business hours (08:00-18:00 UTC)",
+    "outcomes": [
+     "business_hours",
+     "outside_business_hours"
+    ],
+    "cost": 1
+   }
+  },
+  "states": [
+   {
+    "id": "s0",
+    "observed": []
+   },
+   {
+    "id": "s1",
+    "observed": [
+     {
+      "query_id": "Q8",
+      "outcome": "business_hours"
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "id": "AIT-08",
+  "trigger": "AMiner: CPU value deviates from average in monitoring logs. on host monitoring (IP in alert: 10.143.0.35).",
+  "initial_evidence": [
+   "Detector family: AMiner",
+   "Host name: monitoring",
+   "Environment: small enterprise network (web, mail, file share, VPN, DNS, firewall, monitoring)"
+  ],
+  "queries": {
+   "Q1": {
+    "description": "Count other alerts from the same host in the 10 minutes before and after this alert",
+    "outcomes": [
+     "none",
+     "1_to_20",
+     "more_than_20"
+    ],
+    "cost": 1
+   },
+   "Q2": {
+    "description": "Check how often this alert type fired on this host in the previous 24 hours",
+    "outcomes": [
+     "never",
+     "1_to_10_times",
+     "more_than_10_times"
+    ],
+    "cost": 2
+   },
+   "Q3": {
+    "description": "Check whether a different detector family (Wazuh, Suricata or AMiner) alerted on this host within 10 minutes",
+    "outcomes": [
+     "yes",
+     "no"
+    ],
+    "cost": 1
+   },
+   "Q4": {
+    "description": "Check whether the same alert type fired on other hosts within 30 minutes",
+    "outcomes": [
+     "only_this_host",
+     "other_hosts_too"
+    ],
+    "cost": 1
+   },
+   "Q5": {
+    "description": "Check whether the same IP address appears in alerts on other hosts within 30 minutes",
+    "outcomes": [
+     "yes",
+     "no"
+    ],
+    "cost": 1
+   },
+   "Q6": {
+    "description": "Check whether this host raised alert types it had not raised in the previous 24 hours, within 30 minutes of this alert",
+    "outcomes": [
+     "yes",
+     "no"
+    ],
+    "cost": 2
+   },
+   "Q7": {
+    "description": "Count distinct alert types on this host within 10 minutes of this alert",
+    "outcomes": [
+     "one",
+     "two_to_four",
+     "five_or_more"
+    ],
+    "cost": 1
+   },
+   "Q8": {
+    "description": "Check whether the alert fired outside business hours (08:00-18:00 UTC)",
+    "outcomes": [
+     "business_hours",
+     "outside_business_hours"
+    ],
+    "cost": 1
+   }
+  },
+  "states": [
+   {
+    "id": "s0",
+    "observed": []
+   },
+   {
+    "id": "s1",
+    "observed": [
+     {
+      "query_id": "Q8",
+      "outcome": "outside_business_hours"
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "id": "AIT-09",
+  "trigger": "Wazuh: Web server 400 error code. on host intranet_server (IP in alert: 192.168.2.114).",
+  "initial_evidence": [
+   "Detector family: Wazuh",
+   "Host name: intranet_server",
+   "Environment: small enterprise network (web, mail, file share, VPN, DNS, firewall, monitoring)"
+  ],
+  "queries": {
+   "Q1": {
+    "description": "Count other alerts from the same host in the 10 minutes before and after this alert",
+    "outcomes": [
+     "none",
+     "1_to_20",
+     "more_than_20"
+    ],
+    "cost": 1
+   },
+   "Q2": {
+    "description": "Check how often this alert type fired on this host in the previous 24 hours",
+    "outcomes": [
+     "never",
+     "1_to_10_times",
+     "more_than_10_times"
+    ],
+    "cost": 2
+   },
+   "Q3": {
+    "description": "Check whether a different detector family (Wazuh, Suricata or AMiner) alerted on this host within 10 minutes",
+    "outcomes": [
+     "yes",
+     "no"
+    ],
+    "cost": 1
+   },
+   "Q4": {
+    "description": "Check whether the same alert type fired on other hosts within 30 minutes",
+    "outcomes": [
+     "only_this_host",
+     "other_hosts_too"
+    ],
+    "cost": 1
+   },
+   "Q5": {
+    "description": "Check whether the same IP address appears in alerts on other hosts within 30 minutes",
+    "outcomes": [
+     "yes",
+     "no"
+    ],
+    "cost": 1
+   },
+   "Q6": {
+    "description": "Check whether this host raised alert types it had not raised in the previous 24 hours, within 30 minutes of this alert",
+    "outcomes": [
+     "yes",
+     "no"
+    ],
+    "cost": 2
+   },
+   "Q7": {
+    "description": "Count distinct alert types on this host within 10 minutes of this alert",
+    "outcomes": [
+     "one",
+     "two_to_four",
+     "five_or_more"
+    ],
+    "cost": 1
+   },
+   "Q8": {
+    "description": "Check whether the alert fired outside business hours (08:00-18:00 UTC)",
+    "outcomes": [
+     "business_hours",
+     "outside_business_hours"
+    ],
+    "cost": 1
+   }
+  },
+  "states": [
+   {
+    "id": "s0",
+    "observed": []
+   },
+   {
+    "id": "s1",
+    "observed": [
+     {
+      "query_id": "Q8",
+      "outcome": "outside_business_hours"
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "id": "AIT-10",
+  "trigger": "Wazuh: Web server 400 error code. on host cloud_share (IP in alert: 172.21.128.54).",
+  "initial_evidence": [
+   "Detector family: Wazuh",
+   "Host name: cloud_share",
+   "Environment: small enterprise network (web, mail, file share, VPN, DNS, firewall, monitoring)"
+  ],
+  "queries": {
+   "Q1": {
+    "description": "Count other alerts from the same host in the 10 minutes before and after this alert",
+    "outcomes": [
+     "none",
+     "1_to_20",
+     "more_than_20"
+    ],
+    "cost": 1
+   },
+   "Q2": {
+    "description": "Check how often this alert type fired on this host in the previous 24 hours",
+    "outcomes": [
+     "never",
+     "1_to_10_times",
+     "more_than_10_times"
+    ],
+    "cost": 2
+   },
+   "Q3": {
+    "description": "Check whether a different detector family (Wazuh, Suricata or AMiner) alerted on this host within 10 minutes",
+    "outcomes": [
+     "yes",
+     "no"
+    ],
+    "cost": 1
+   },
+   "Q4": {
+    "description": "Check whether the same alert type fired on other hosts within 30 minutes",
+    "outcomes": [
+     "only_this_host",
+     "other_hosts_too"
+    ],
+    "cost": 1
+   },
+   "Q5": {
+    "description": "Check whether the same IP address appears in alerts on other hosts within 30 minutes",
+    "outcomes": [
+     "yes",
+     "no"
+    ],
+    "cost": 1
+   },
+   "Q6": {
+    "description": "Check whether this host raised alert types it had not raised in the previous 24 hours, within 30 minutes of this alert",
+    "outcomes": [
+     "yes",
+     "no"
+    ],
+    "cost": 2
+   },
+   "Q7": {
+    "description": "Count distinct alert types on this host within 10 minutes of this alert",
+    "outcomes": [
+     "one",
+     "two_to_four",
+     "five_or_more"
+    ],
+    "cost": 1
+   },
+   "Q8": {
+    "description": "Check whether the alert fired outside business hours (08:00-18:00 UTC)",
+    "outcomes": [
+     "business_hours",
+     "outside_business_hours"
+    ],
+    "cost": 1
+   }
+  },
+  "states": [
+   {
+    "id": "s0",
+    "observed": []
+   },
+   {
+    "id": "s1",
+    "observed": [
+     {
+      "query_id": "Q8",
+      "outcome": "business_hours"
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "id": "AIT-11",
+  "trigger": "Wazuh: PAM: Login session closed. on host intranet_server (IP in alert: 172.26.243.167).",
+  "initial_evidence": [
+   "Detector family: Wazuh",
+   "Host name: intranet_server",
+   "Environment: small enterprise network (web, mail, file share, VPN, DNS, firewall, monitoring)"
+  ],
+  "queries": {
+   "Q1": {
+    "description": "Count other alerts from the same host in the 10 minutes before and after this alert",
+    "outcomes": [
+     "none",
+     "1_to_20",
+     "more_than_20"
+    ],
+    "cost": 1
+   },
+   "Q2": {
+    "description": "Check how often this alert type fired on this host in the previous 24 hours",
+    "outcomes": [
+     "never",
+     "1_to_10_times",
+     "more_than_10_times"
+    ],
+    "cost": 2
+   },
+   "Q3": {
+    "description": "Check whether a different detector family (Wazuh, Suricata or AMiner) alerted on this host within 10 minutes",
+    "outcomes": [
+     "yes",
+     "no"
+    ],
+    "cost": 1
+   },
+   "Q4": {
+    "description": "Check whether the same alert type fired on other hosts within 30 minutes",
+    "outcomes": [
+     "only_this_host",
+     "other_hosts_too"
+    ],
+    "cost": 1
+   },
+   "Q5": {
+    "description": "Check whether the same IP address appears in alerts on other hosts within 30 minutes",
+    "outcomes": [
+     "yes",
+     "no"
+    ],
+    "cost": 1
+   },
+   "Q6": {
+    "description": "Check whether this host raised alert types it had not raised in the previous 24 hours, within 30 minutes of this alert",
+    "outcomes": [
+     "yes",
+     "no"
+    ],
+    "cost": 2
+   },
+   "Q7": {
+    "description": "Count distinct alert types on this host within 10 minutes of this alert",
+    "outcomes": [
+     "one",
+     "two_to_four",
+     "five_or_more"
+    ],
+    "cost": 1
+   },
+   "Q8": {
+    "description": "Check whether the alert fired outside business hours (08:00-18:00 UTC)",
+    "outcomes": [
+     "business_hours",
+     "outside_business_hours"
+    ],
+    "cost": 1
+   }
+  },
+  "states": [
+   {
+    "id": "s0",
+    "observed": []
+   },
+   {
+    "id": "s1",
+    "observed": [
+     {
+      "query_id": "Q8",
+      "outcome": "business_hours"
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "id": "AIT-12",
+  "trigger": "AMiner: New login parameter combination in Audit logs. on host intranet_server (IP in alert: 192.168.104.155).",
+  "initial_evidence": [
+   "Detector family: AMiner",
+   "Host name: intranet_server",
+   "Environment: small enterprise network (web, mail, file share, VPN, DNS, firewall, monitoring)"
+  ],
+  "queries": {
+   "Q1": {
+    "description": "Count other alerts from the same host in the 10 minutes before and after this alert",
+    "outcomes": [
+     "none",
+     "1_to_20",
+     "more_than_20"
+    ],
+    "cost": 1
+   },
+   "Q2": {
+    "description": "Check how often this alert type fired on this host in the previous 24 hours",
+    "outcomes": [
+     "never",
+     "1_to_10_times",
+     "more_than_10_times"
+    ],
+    "cost": 2
+   },
+   "Q3": {
+    "description": "Check whether a different detector family (Wazuh, Suricata or AMiner) alerted on this host within 10 minutes",
+    "outcomes": [
+     "yes",
+     "no"
+    ],
+    "cost": 1
+   },
+   "Q4": {
+    "description": "Check whether the same alert type fired on other hosts within 30 minutes",
+    "outcomes": [
+     "only_this_host",
+     "other_hosts_too"
+    ],
+    "cost": 1
+   },
+   "Q5": {
+    "description": "Check whether the same IP address appears in alerts on other hosts within 30 minutes",
+    "outcomes": [
+     "yes",
+     "no"
+    ],
+    "cost": 1
+   },
+   "Q6": {
+    "description": "Check whether this host raised alert types it had not raised in the previous 24 hours, within 30 minutes of this alert",
+    "outcomes": [
+     "yes",
+     "no"
+    ],
+    "cost": 2
+   },
+   "Q7": {
+    "description": "Count distinct alert types on this host within 10 minutes of this alert",
+    "outcomes": [
+     "one",
+     "two_to_four",
+     "five_or_more"
+    ],
+    "cost": 1
+   },
+   "Q8": {
+    "description": "Check whether the alert fired outside business hours (08:00-18:00 UTC)",
+    "outcomes": [
+     "business_hours",
+     "outside_business_hours"
+    ],
+    "cost": 1
+   }
+  },
+  "states": [
+   {
+    "id": "s0",
+    "observed": []
+   },
+   {
+    "id": "s1",
+    "observed": [
+     {
+      "query_id": "Q8",
+      "outcome": "business_hours"
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "id": "AIT-13",
+  "trigger": "AMiner: New ip address in DNS logs. on host inet-firewall (IP in alert: 192.168.128.1).",
+  "initial_evidence": [
+   "Detector family: AMiner",
+   "Host name: inet-firewall",
+   "Environment: small enterprise network (web, mail, file share, VPN, DNS, firewall, monitoring)"
+  ],
+  "queries": {
+   "Q1": {
+    "description": "Count other alerts from the same host in the 10 minutes before and after this alert",
+    "outcomes": [
+     "none",
+     "1_to_20",
+     "more_than_20"
+    ],
+    "cost": 1
+   },
+   "Q2": {
+    "description": "Check how often this alert type fired on this host in the previous 24 hours",
+    "outcomes": [
+     "never",
+     "1_to_10_times",
+     "more_than_10_times"
+    ],
+    "cost": 2
+   },
+   "Q3": {
+    "description": "Check whether a different detector family (Wazuh, Suricata or AMiner) alerted on this host within 10 minutes",
+    "outcomes": [
+     "yes",
+     "no"
+    ],
+    "cost": 1
+   },
+   "Q4": {
+    "description": "Check whether the same alert type fired on other hosts within 30 minutes",
+    "outcomes": [
+     "only_this_host",
+     "other_hosts_too"
+    ],
+    "cost": 1
+   },
+   "Q5": {
+    "description": "Check whether the same IP address appears in alerts on other hosts within 30 minutes",
+    "outcomes": [
+     "yes",
+     "no"
+    ],
+    "cost": 1
+   },
+   "Q6": {
+    "description": "Check whether this host raised alert types it had not raised in the previous 24 hours, within 30 minutes of this alert",
+    "outcomes": [
+     "yes",
+     "no"
+    ],
+    "cost": 2
+   },
+   "Q7": {
+    "description": "Count distinct alert types on this host within 10 minutes of this alert",
+    "outcomes": [
+     "one",
+     "two_to_four",
+     "five_or_more"
+    ],
+    "cost": 1
+   },
+   "Q8": {
+    "description": "Check whether the alert fired outside business hours (08:00-18:00 UTC)",
+    "outcomes": [
+     "business_hours",
+     "outside_business_hours"
+    ],
+    "cost": 1
+   }
+  },
+  "states": [
+   {
+    "id": "s0",
+    "observed": []
+   },
+   {
+    "id": "s1",
+    "observed": [
+     {
+      "query_id": "Q8",
+      "outcome": "outside_business_hours"
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "id": "AIT-14",
+  "trigger": "Wazuh: Apache: Attempt to access forbidden file or directory. on host webserver (IP in alert: 172.19.130.68).",
+  "initial_evidence": [
+   "Detector family: Wazuh",
+   "Host name: webserver",
+   "Environment: small enterprise network (web, mail, file share, VPN, DNS, firewall, monitoring)"
+  ],
+  "queries": {
+   "Q1": {
+    "description": "Count other alerts from the same host in the 10 minutes before and after this alert",
+    "outcomes": [
+     "none",
+     "1_to_20",
+     "more_than_20"
+    ],
+    "cost": 1
+   },
+   "Q2": {
+    "description": "Check how often this alert type fired on this host in the previous 24 hours",
+    "outcomes": [
+     "never",
+     "1_to_10_times",
+     "more_than_10_times"
+    ],
+    "cost": 2
+   },
+   "Q3": {
+    "description": "Check whether a different detector family (Wazuh, Suricata or AMiner) alerted on this host within 10 minutes",
+    "outcomes": [
+     "yes",
+     "no"
+    ],
+    "cost": 1
+   },
+   "Q4": {
+    "description": "Check whether the same alert type fired on other hosts within 30 minutes",
+    "outcomes": [
+     "only_this_host",
+     "other_hosts_too"
+    ],
+    "cost": 1
+   },
+   "Q5": {
+    "description": "Check whether the same IP address appears in alerts on other hosts within 30 minutes",
+    "outcomes": [
+     "yes",
+     "no"
+    ],
+    "cost": 1
+   },
+   "Q6": {
+    "description": "Check whether this host raised alert types it had not raised in the previous 24 hours, within 30 minutes of this alert",
+    "outcomes": [
+     "yes",
+     "no"
+    ],
+    "cost": 2
+   },
+   "Q7": {
+    "description": "Count distinct alert types on this host within 10 minutes of this alert",
+    "outcomes": [
+     "one",
+     "two_to_four",
+     "five_or_more"
+    ],
+    "cost": 1
+   },
+   "Q8": {
+    "description": "Check whether the alert fired outside business hours (08:00-18:00 UTC)",
+    "outcomes": [
+     "business_hours",
+     "outside_business_hours"
+    ],
+    "cost": 1
+   }
+  },
+  "states": [
+   {
+    "id": "s0",
+    "observed": []
+   },
+   {
+    "id": "s1",
+    "observed": [
+     {
+      "query_id": "Q8",
+      "outcome": "outside_business_hours"
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "id": "AIT-15",
+  "trigger": "Wazuh: Web server 400 error code. on host intranet_server (IP in alert: 10.35.35.206).",
+  "initial_evidence": [
+   "Detector family: Wazuh",
+   "Host name: intranet_server",
+   "Environment: small enterprise network (web, mail, file share, VPN, DNS, firewall, monitoring)"
+  ],
+  "queries": {
+   "Q1": {
+    "description": "Count other alerts from the same host in the 10 minutes before and after this alert",
+    "outcomes": [
+     "none",
+     "1_to_20",
+     "more_than_20"
+    ],
+    "cost": 1
+   },
+   "Q2": {
+    "description": "Check how often this alert type fired on this host in the previous 24 hours",
+    "outcomes": [
+     "never",
+     "1_to_10_times",
+     "more_than_10_times"
+    ],
+    "cost": 2
+   },
+   "Q3": {
+    "description": "Check whether a different detector family (Wazuh, Suricata or AMiner) alerted on this host within 10 minutes",
+    "outcomes": [
+     "yes",
+     "no"
+    ],
+    "cost": 1
+   },
+   "Q4": {
+    "description": "Check whether the same alert type fired on other hosts within 30 minutes",
+    "outcomes": [
+     "only_this_host",
+     "other_hosts_too"
+    ],
+    "cost": 1
+   },
+   "Q5": {
+    "description": "Check whether the same IP address appears in alerts on other hosts within 30 minutes",
+    "outcomes": [
+     "yes",
+     "no"
+    ],
+    "cost": 1
+   },
+   "Q6": {
+    "description": "Check whether this host raised alert types it had not raised in the previous 24 hours, within 30 minutes of this alert",
+    "outcomes": [
+     "yes",
+     "no"
+    ],
+    "cost": 2
+   },
+   "Q7": {
+    "description": "Count distinct alert types on this host within 10 minutes of this alert",
+    "outcomes": [
+     "one",
+     "two_to_four",
+     "five_or_more"
+    ],
+    "cost": 1
+   },
+   "Q8": {
+    "description": "Check whether the alert fired outside business hours (08:00-18:00 UTC)",
+    "outcomes": [
+     "business_hours",
+     "outside_business_hours"
+    ],
+    "cost": 1
+   }
+  },
+  "states": [
+   {
+    "id": "s0",
+    "observed": []
+   },
+   {
+    "id": "s1",
+    "observed": [
+     {
+      "query_id": "Q8",
+      "outcome": "business_hours"
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "id": "AIT-16",
+  "trigger": "AMiner: New service_start parameter combination in Audit logs. on host internal_share (IP in alert: 192.168.3.116).",
+  "initial_evidence": [
+   "Detector family: AMiner",
+   "Host name: internal_share",
+   "Environment: small enterprise network (web, mail, file share, VPN, DNS, firewall, monitoring)"
+  ],
+  "queries": {
+   "Q1": {
+    "description": "Count other alerts from the same host in the 10 minutes before and after this alert",
+    "outcomes": [
+     "none",
+     "1_to_20",
+     "more_than_20"
+    ],
+    "cost": 1
+   },
+   "Q2": {
+    "description": "Check how often this alert type fired on this host in the previous 24 hours",
+    "outcomes": [
+     "never",
+     "1_to_10_times",
+     "more_than_10_times"
+    ],
+    "cost": 2
+   },
+   "Q3": {
+    "description": "Check whether a different detector family (Wazuh, Suricata or AMiner) alerted on this host within 10 minutes",
+    "outcomes": [
+     "yes",
+     "no"
+    ],
+    "cost": 1
+   },
+   "Q4": {
+    "description": "Check whether the same alert type fired on other hosts within 30 minutes",
+    "outcomes": [
+     "only_this_host",
+     "other_hosts_too"
+    ],
+    "cost": 1
+   },
+   "Q5": {
+    "description": "Check whether the same IP address appears in alerts on other hosts within 30 minutes",
+    "outcomes": [
+     "yes",
+     "no"
+    ],
+    "cost": 1
+   },
+   "Q6": {
+    "description": "Check whether this host raised alert types it had not raised in the previous 24 hours, within 30 minutes of this alert",
+    "outcomes": [
+     "yes",
+     "no"
+    ],
+    "cost": 2
+   },
+   "Q7": {
+    "description": "Count distinct alert types on this host within 10 minutes of this alert",
+    "outcomes": [
+     "one",
+     "two_to_four",
+     "five_or_more"
+    ],
+    "cost": 1
+   },
+   "Q8": {
+    "description": "Check whether the alert fired outside business hours (08:00-18:00 UTC)",
+    "outcomes": [
+     "business_hours",
+     "outside_business_hours"
+    ],
+    "cost": 1
+   }
+  },
+  "states": [
+   {
+    "id": "s0",
+    "observed": []
+   },
+   {
+    "id": "s1",
+    "observed": [
+     {
+      "query_id": "Q8",
+      "outcome": "outside_business_hours"
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "id": "AIT-17",
+  "trigger": "AMiner: New user_acct parameter combination in Audit logs. on host mail (IP in alert: 10.38.242.195).",
+  "initial_evidence": [
+   "Detector family: AMiner",
+   "Host name: mail",
+   "Environment: small enterprise network (web, mail, file share, VPN, DNS, firewall, monitoring)"
+  ],
+  "queries": {
+   "Q1": {
+    "description": "Count other alerts from the same host in the 10 minutes before and after this alert",
+    "outcomes": [
+     "none",
+     "1_to_20",
+     "more_than_20"
+    ],
+    "cost": 1
+   },
+   "Q2": {
+    "description": "Check how often this alert type fired on this host in the previous 24 hours",
+    "outcomes": [
+     "never",
+     "1_to_10_times",
+     "more_than_10_times"
+    ],
+    "cost": 2
+   },
+   "Q3": {
+    "description": "Check whether a different detector family (Wazuh, Suricata or AMiner) alerted on this host within 10 minutes",
+    "outcomes": [
+     "yes",
+     "no"
+    ],
+    "cost": 1
+   },
+   "Q4": {
+    "description": "Check whether the same alert type fired on other hosts within 30 minutes",
+    "outcomes": [
+     "only_this_host",
+     "other_hosts_too"
+    ],
+    "cost": 1
+   },
+   "Q5": {
+    "description": "Check whether the same IP address appears in alerts on other hosts within 30 minutes",
+    "outcomes": [
+     "yes",
+     "no"
+    ],
+    "cost": 1
+   },
+   "Q6": {
+    "description": "Check whether this host raised alert types it had not raised in the previous 24 hours, within 30 minutes of this alert",
+    "outcomes": [
+     "yes",
+     "no"
+    ],
+    "cost": 2
+   },
+   "Q7": {
+    "description": "Count distinct alert types on this host within 10 minutes of this alert",
+    "outcomes": [
+     "one",
+     "two_to_four",
+     "five_or_more"
+    ],
+    "cost": 1
+   },
+   "Q8": {
+    "description": "Check whether the alert fired outside business hours (08:00-18:00 UTC)",
+    "outcomes": [
+     "business_hours",
+     "outside_business_hours"
+    ],
+    "cost": 1
+   }
+  },
+  "states": [
+   {
+    "id": "s0",
+    "observed": []
+   },
+   {
+    "id": "s1",
+    "observed": [
+     {
+      "query_id": "Q8",
+      "outcome": "business_hours"
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "id": "AIT-18",
+  "trigger": "AMiner: New characters in DNS domain. on host inet-firewall (IP in alert: 172.27.180.4).",
+  "initial_evidence": [
+   "Detector family: AMiner",
+   "Host name: inet-firewall",
+   "Environment: small enterprise network (web, mail, file share, VPN, DNS, firewall, monitoring)"
+  ],
+  "queries": {
+   "Q1": {
+    "description": "Count other alerts from the same host in the 10 minutes before and after this alert",
+    "outcomes": [
+     "none",
+     "1_to_20",
+     "more_than_20"
+    ],
+    "cost": 1
+   },
+   "Q2": {
+    "description": "Check how often this alert type fired on this host in the previous 24 hours",
+    "outcomes": [
+     "never",
+     "1_to_10_times",
+     "more_than_10_times"
+    ],
+    "cost": 2
+   },
+   "Q3": {
+    "description": "Check whether a different detector family (Wazuh, Suricata or AMiner) alerted on this host within 10 minutes",
+    "outcomes": [
+     "yes",
+     "no"
+    ],
+    "cost": 1
+   },
+   "Q4": {
+    "description": "Check whether the same alert type fired on other hosts within 30 minutes",
+    "outcomes": [
+     "only_this_host",
+     "other_hosts_too"
+    ],
+    "cost": 1
+   },
+   "Q5": {
+    "description": "Check whether the same IP address appears in alerts on other hosts within 30 minutes",
+    "outcomes": [
+     "yes",
+     "no"
+    ],
+    "cost": 1
+   },
+   "Q6": {
+    "description": "Check whether this host raised alert types it had not raised in the previous 24 hours, within 30 minutes of this alert",
+    "outcomes": [
+     "yes",
+     "no"
+    ],
+    "cost": 2
+   },
+   "Q7": {
+    "description": "Count distinct alert types on this host within 10 minutes of this alert",
+    "outcomes": [
+     "one",
+     "two_to_four",
+     "five_or_more"
+    ],
+    "cost": 1
+   },
+   "Q8": {
+    "description": "Check whether the alert fired outside business hours (08:00-18:00 UTC)",
+    "outcomes": [
+     "business_hours",
+     "outside_business_hours"
+    ],
+    "cost": 1
+   }
+  },
+  "states": [
+   {
+    "id": "s0",
+    "observed": []
+   },
+   {
+    "id": "s1",
+    "observed": [
+     {
+      "query_id": "Q8",
+      "outcome": "business_hours"
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "id": "AIT-19",
+  "trigger": "AMiner: Unusual occurrence frequencies of Apache Access request methods. on host taylorcruz_mail (IP in alert: 192.168.128.195).",
+  "initial_evidence": [
+   "Detector family: AMiner",
+   "Host name: taylorcruz_mail",
+   "Environment: small enterprise network (web, mail, file share, VPN, DNS, firewall, monitoring)"
+  ],
+  "queries": {
+   "Q1": {
+    "description": "Count other alerts from the same host in the 10 minutes before and after this alert",
+    "outcomes": [
+     "none",
+     "1_to_20",
+     "more_than_20"
+    ],
+    "cost": 1
+   },
+   "Q2": {
+    "description": "Check how often this alert type fired on this host in the previous 24 hours",
+    "outcomes": [
+     "never",
+     "1_to_10_times",
+     "more_than_10_times"
+    ],
+    "cost": 2
+   },
+   "Q3": {
+    "description": "Check whether a different detector family (Wazuh, Suricata or AMiner) alerted on this host within 10 minutes",
+    "outcomes": [
+     "yes",
+     "no"
+    ],
+    "cost": 1
+   },
+   "Q4": {
+    "description": "Check whether the same alert type fired on other hosts within 30 minutes",
+    "outcomes": [
+     "only_this_host",
+     "other_hosts_too"
+    ],
+    "cost": 1
+   },
+   "Q5": {
+    "description": "Check whether the same IP address appears in alerts on other hosts within 30 minutes",
+    "outcomes": [
+     "yes",
+     "no"
+    ],
+    "cost": 1
+   },
+   "Q6": {
+    "description": "Check whether this host raised alert types it had not raised in the previous 24 hours, within 30 minutes of this alert",
+    "outcomes": [
+     "yes",
+     "no"
+    ],
+    "cost": 2
+   },
+   "Q7": {
+    "description": "Count distinct alert types on this host within 10 minutes of this alert",
+    "outcomes": [
+     "one",
+     "two_to_four",
+     "five_or_more"
+    ],
+    "cost": 1
+   },
+   "Q8": {
+    "description": "Check whether the alert fired outside business hours (08:00-18:00 UTC)",
+    "outcomes": [
+     "business_hours",
+     "outside_business_hours"
+    ],
+    "cost": 1
+   }
+  },
+  "states": [
+   {
+    "id": "s0",
+    "observed": []
+   },
+   {
+    "id": "s1",
+    "observed": [
+     {
+      "query_id": "Q8",
+      "outcome": "outside_business_hours"
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "id": "AIT-20",
+  "trigger": "AMiner: New characters in Apache Access request. on host webserver (IP in alert: 10.132.57.136).",
+  "initial_evidence": [
+   "Detector family: AMiner",
+   "Host name: webserver",
+   "Environment: small enterprise network (web, mail, file share, VPN, DNS, firewall, monitoring)"
+  ],
+  "queries": {
+   "Q1": {
+    "description": "Count other alerts from the same host in the 10 minutes before and after this alert",
+    "outcomes": [
+     "none",
+     "1_to_20",
+     "more_than_20"
+    ],
+    "cost": 1
+   },
+   "Q2": {
+    "description": "Check how often this alert type fired on this host in the previous 24 hours",
+    "outcomes": [
+     "never",
+     "1_to_10_times",
+     "more_than_10_times"
+    ],
+    "cost": 2
+   },
+   "Q3": {
+    "description": "Check whether a different detector family (Wazuh, Suricata or AMiner) alerted on this host within 10 minutes",
+    "outcomes": [
+     "yes",
+     "no"
+    ],
+    "cost": 1
+   },
+   "Q4": {
+    "description": "Check whether the same alert type fired on other hosts within 30 minutes",
+    "outcomes": [
+     "only_this_host",
+     "other_hosts_too"
+    ],
+    "cost": 1
+   },
+   "Q5": {
+    "description": "Check whether the same IP address appears in alerts on other hosts within 30 minutes",
+    "outcomes": [
+     "yes",
+     "no"
+    ],
+    "cost": 1
+   },
+   "Q6": {
+    "description": "Check whether this host raised alert types it had not raised in the previous 24 hours, within 30 minutes of this alert",
+    "outcomes": [
+     "yes",
+     "no"
+    ],
+    "cost": 2
+   },
+   "Q7": {
+    "description": "Count distinct alert types on this host within 10 minutes of this alert",
+    "outcomes": [
+     "one",
+     "two_to_four",
+     "five_or_more"
+    ],
+    "cost": 1
+   },
+   "Q8": {
+    "description": "Check whether the alert fired outside business hours (08:00-18:00 UTC)",
+    "outcomes": [
+     "business_hours",
+     "outside_business_hours"
+    ],
+    "cost": 1
+   }
+  },
+  "states": [
+   {
+    "id": "s0",
+    "observed": []
+   },
+   {
+    "id": "s1",
+    "observed": [
+     {
+      "query_id": "Q8",
+      "outcome": "outside_business_hours"
+     }
+    ]
+   }
+  ]
+ }
+]

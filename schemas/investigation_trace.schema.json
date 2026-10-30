@@ -1,0 +1,120 @@
+{
+ "$defs": {
+  "HumanProvenance": {
+   "additionalProperties": false,
+   "properties": {
+    "participant_id": {
+     "title": "Participant Id",
+     "type": "string"
+    },
+    "session_id": {
+     "title": "Session Id",
+     "type": "string"
+    },
+    "consent_record_id": {
+     "title": "Consent Record Id",
+     "type": "string"
+    },
+    "authenticated_by": {
+     "title": "Authenticated By",
+     "type": "string"
+    }
+   },
+   "required": [
+    "participant_id",
+    "session_id",
+    "consent_record_id",
+    "authenticated_by"
+   ],
+   "title": "HumanProvenance",
+   "type": "object"
+  }
+ },
+ "additionalProperties": false,
+ "properties": {
+  "schema_version": {
+   "default": "cover-v3.0",
+   "title": "Schema Version",
+   "type": "string"
+  },
+  "run_id": {
+   "title": "Run Id",
+   "type": "string"
+  },
+  "case_id": {
+   "title": "Case Id",
+   "type": "string"
+  },
+  "arm": {
+   "title": "Arm",
+   "type": "string"
+  },
+  "rep": {
+   "title": "Rep",
+   "type": "integer"
+  },
+  "turn": {
+   "title": "Turn",
+   "type": "integer"
+  },
+  "event_type": {
+   "enum": [
+    "hypotheses_generated",
+    "recommendation_proposed",
+    "recommendation_selected",
+    "query_executed",
+    "observation_received",
+    "execution_error",
+    "belief_updated",
+    "verdict",
+    "deferred_to_analyst",
+    "rival_persistence_violation"
+   ],
+   "title": "Event Type",
+   "type": "string"
+  },
+  "timestamp_utc": {
+   "title": "Timestamp Utc",
+   "type": "string"
+  },
+  "provenance": {
+   "enum": [
+    "llm",
+    "rule",
+    "simulator",
+    "simulated_replay",
+    "human"
+   ],
+   "title": "Provenance",
+   "type": "string"
+  },
+  "human_provenance": {
+   "anyOf": [
+    {
+     "$ref": "#/$defs/HumanProvenance"
+    },
+    {
+     "type": "null"
+    }
+   ],
+   "default": null
+  },
+  "payload": {
+   "additionalProperties": true,
+   "title": "Payload",
+   "type": "object"
+  }
+ },
+ "required": [
+  "run_id",
+  "case_id",
+  "arm",
+  "rep",
+  "turn",
+  "event_type",
+  "timestamp_utc",
+  "provenance"
+ ],
+ "title": "TraceEvent",
+ "type": "object"
+}

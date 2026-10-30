@@ -1,0 +1,477 @@
+{
+ "$defs": {
+  "ContrastCard": {
+   "additionalProperties": false,
+   "properties": {
+    "schema_version": {
+     "default": "cover-v3.0",
+     "title": "Schema Version",
+     "type": "string"
+    },
+    "case_id": {
+     "title": "Case Id",
+     "type": "string"
+    },
+    "state_id": {
+     "title": "State Id",
+     "type": "string"
+    },
+    "turn": {
+     "title": "Turn",
+     "type": "integer"
+    },
+    "arm": {
+     "title": "Arm",
+     "type": "string"
+    },
+    "query_id": {
+     "title": "Query Id",
+     "type": "string"
+    },
+    "query_language": {
+     "const": "catalog_check",
+     "default": "catalog_check",
+     "title": "Query Language",
+     "type": "string"
+    },
+    "query_text": {
+     "title": "Query Text",
+     "type": "string"
+    },
+    "feasible": {
+     "title": "Feasible",
+     "type": "boolean"
+    },
+    "feasibility_reason": {
+     "title": "Feasibility Reason",
+     "type": "string"
+    },
+    "purpose": {
+     "default": "candidate",
+     "enum": [
+      "challenge_leading_hunch",
+      "independent_corroboration",
+      "alternative_rival_check",
+      "exploratory",
+      "nondiscriminating_fallback",
+      "unranked_option",
+      "candidate"
+     ],
+     "title": "Purpose",
+     "type": "string"
+    },
+    "leading_hypothesis_id": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "title": "Leading Hypothesis Id"
+    },
+    "rival_hypothesis_id": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Rival Hypothesis Id"
+    },
+    "if_leading_hypothesis": {
+     "anyOf": [
+      {
+       "$ref": "#/$defs/PredictedObservation"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null
+    },
+    "if_rival_hypothesis": {
+     "anyOf": [
+      {
+       "$ref": "#/$defs/PredictedObservation"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null
+    },
+    "what_would_count_against_leader": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "What Would Count Against Leader"
+    },
+    "distinct_evidence_needed": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Distinct Evidence Needed"
+    },
+    "previously_checked": {
+     "default": false,
+     "title": "Previously Checked",
+     "type": "boolean"
+    },
+    "discriminating": {
+     "default": false,
+     "title": "Discriminating",
+     "type": "boolean"
+    },
+    "could_undermine_leader": {
+     "default": false,
+     "title": "Could Undermine Leader",
+     "type": "boolean"
+    },
+    "corroborates_leader": {
+     "default": false,
+     "title": "Corroborates Leader",
+     "type": "boolean"
+    },
+    "rivals_challenging_leader": {
+     "items": {
+      "type": "string"
+     },
+     "title": "Rivals Challenging Leader",
+     "type": "array"
+    },
+    "rivals_challenged_by_leader": {
+     "items": {
+      "type": "string"
+     },
+     "title": "Rivals Challenged By Leader",
+     "type": "array"
+    },
+    "cross_label_pairs_separated": {
+     "items": {
+      "items": {
+       "type": "string"
+      },
+      "type": "array"
+     },
+     "title": "Cross Label Pairs Separated",
+     "type": "array"
+    },
+    "not_mutually_exclusive": {
+     "default": false,
+     "title": "Not Mutually Exclusive",
+     "type": "boolean"
+    },
+    "low_confidence": {
+     "default": false,
+     "title": "Low Confidence",
+     "type": "boolean"
+    },
+    "contrast_tier": {
+     "anyOf": [
+      {
+       "enum": [
+        "decisive",
+        "strong",
+        "weak"
+       ],
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Contrast Tier"
+    },
+    "corroboration_tier": {
+     "anyOf": [
+      {
+       "enum": [
+        "decisive",
+        "strong",
+        "weak"
+       ],
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Corroboration Tier"
+    },
+    "verifier_rating": {
+     "anyOf": [
+      {
+       "enum": [
+        "decisive",
+        "suggestive",
+        "not_diagnostic",
+        "unverified"
+       ],
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Verifier Rating"
+    },
+    "verifier_reason": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Verifier Reason"
+    },
+    "missing_predictions": {
+     "default": 0,
+     "title": "Missing Predictions",
+     "type": "integer"
+    },
+    "explanation": {
+     "default": "",
+     "title": "Explanation",
+     "type": "string"
+    },
+    "limitations": {
+     "items": {
+      "type": "string"
+     },
+     "title": "Limitations",
+     "type": "array"
+    },
+    "warnings": {
+     "items": {
+      "type": "string"
+     },
+     "title": "Warnings",
+     "type": "array"
+    },
+    "human_choice": {
+     "default": null,
+     "title": "Human Choice",
+     "type": "null"
+    },
+    "simulated_choice": {
+     "anyOf": [
+      {
+       "enum": [
+        "selected_top1",
+        "not_selected"
+       ],
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Simulated Choice"
+    }
+   },
+   "required": [
+    "case_id",
+    "state_id",
+    "turn",
+    "arm",
+    "query_id",
+    "query_text",
+    "feasible",
+    "feasibility_reason",
+    "leading_hypothesis_id"
+   ],
+   "title": "ContrastCard",
+   "type": "object"
+  },
+  "PredictedObservation": {
+   "additionalProperties": false,
+   "properties": {
+    "hypothesis_id": {
+     "title": "Hypothesis Id",
+     "type": "string"
+    },
+    "predicted_observation": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "title": "Predicted Observation"
+    },
+    "probability": {
+     "anyOf": [
+      {
+       "type": "number"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "title": "Probability"
+    },
+    "source": {
+     "default": "LLM_prediction",
+     "enum": [
+      "LLM_prediction",
+      "missing"
+     ],
+     "title": "Source",
+     "type": "string"
+    },
+    "uncertain": {
+     "title": "Uncertain",
+     "type": "boolean"
+    }
+   },
+   "required": [
+    "hypothesis_id",
+    "predicted_observation",
+    "probability",
+    "uncertain"
+   ],
+   "title": "PredictedObservation",
+   "type": "object"
+  },
+  "Rejected": {
+   "additionalProperties": false,
+   "properties": {
+    "query_id": {
+     "title": "Query Id",
+     "type": "string"
+    },
+    "reason": {
+     "title": "Reason",
+     "type": "string"
+    }
+   },
+   "required": [
+    "query_id",
+    "reason"
+   ],
+   "title": "Rejected",
+   "type": "object"
+  }
+ },
+ "additionalProperties": false,
+ "properties": {
+  "schema_version": {
+   "default": "cover-v3.0",
+   "title": "Schema Version",
+   "type": "string"
+  },
+  "case_id": {
+   "title": "Case Id",
+   "type": "string"
+  },
+  "state_id": {
+   "title": "State Id",
+   "type": "string"
+  },
+  "turn": {
+   "title": "Turn",
+   "type": "integer"
+  },
+  "arm": {
+   "title": "Arm",
+   "type": "string"
+  },
+  "leading_hypothesis_id": {
+   "anyOf": [
+    {
+     "type": "string"
+    },
+    {
+     "type": "null"
+    }
+   ],
+   "title": "Leading Hypothesis Id"
+  },
+  "items": {
+   "items": {
+    "$ref": "#/$defs/ContrastCard"
+   },
+   "title": "Items",
+   "type": "array"
+  },
+  "review_required": {
+   "title": "Review Required",
+   "type": "boolean"
+  },
+  "limitation": {
+   "anyOf": [
+    {
+     "type": "string"
+    },
+    {
+     "type": "null"
+    }
+   ],
+   "default": null,
+   "title": "Limitation"
+  },
+  "explanation": {
+   "default": "",
+   "title": "Explanation",
+   "type": "string"
+  },
+  "rejected": {
+   "items": {
+    "$ref": "#/$defs/Rejected"
+   },
+   "title": "Rejected",
+   "type": "array"
+  },
+  "rule_trace": {
+   "items": {
+    "type": "string"
+   },
+   "title": "Rule Trace",
+   "type": "array"
+  },
+  "tie_break_order": {
+   "items": {
+    "type": "string"
+   },
+   "title": "Tie Break Order",
+   "type": "array"
+  }
+ },
+ "required": [
+  "case_id",
+  "state_id",
+  "turn",
+  "arm",
+  "leading_hypothesis_id",
+  "items",
+  "review_required"
+ ],
+ "title": "RecommendationBundle",
+ "type": "object"
+}

@@ -1,0 +1,134 @@
+[
+  {
+    "_draft_note": "DRAFT written from the paper's scenario table. Check every hidden field (truth, reference_outcome, diagnostic, redundant_with) against your workbook with a second coder, then set validated to true.",
+    "id": "SC-01",
+    "validated": false,
+    "truth": "malicious",
+    "trigger": "powershell.exe started with an -EncodedCommand argument on workstation WS-114.",
+    "initial_evidence": [
+      "WS-114 is assigned to a user in the finance department",
+      "No software deployment was scheduled for WS-114 today"
+    ],
+    "queries": {
+      "Q1": {"description": "Identify the parent process of powershell.exe", "outcomes": ["office_application", "management_agent", "user_shell"], "reference_outcome": "office_application", "diagnostic": true, "cost": 1},
+      "Q2": {"description": "Decode the encoded command and classify its content", "outcomes": ["download_and_execute", "administrative_script", "other"], "reference_outcome": "download_and_execute", "diagnostic": true, "cost": 1},
+      "Q3": {"description": "Check outbound connections from WS-114 in the 5 minutes after execution", "outcomes": ["unknown_external_host", "internal_only", "none"], "reference_outcome": "unknown_external_host", "diagnostic": true, "redundant_with": ["Q2"], "cost": 2},
+      "Q4": {"description": "Count PowerShell executions on WS-114 in the past 30 days", "outcomes": ["frequent", "rare"], "reference_outcome": "rare", "diagnostic": false, "cost": 1},
+      "Q5": {"description": "Check whether the logged-on user has local administrator rights", "outcomes": ["administrator", "standard_user"], "reference_outcome": "standard_user", "diagnostic": false, "cost": 1}
+    },
+    "states": [
+      {"id": "s0", "observed": []},
+      {"id": "s1", "observed": ["Q2"]}
+    ]
+  },
+  {
+    "id": "SC-02",
+    "validated": false,
+    "truth": "benign",
+    "trigger": "347 failed Kerberos authentications for account svc_backup within 20 minutes.",
+    "initial_evidence": [
+      "svc_backup is a service account without interactive logon rights",
+      "No successful logons for svc_backup occurred in the alert window"
+    ],
+    "queries": {
+      "Q1": {"description": "Count distinct source hosts for the failed logons", "outcomes": ["single_source", "many_sources"], "reference_outcome": "single_source", "diagnostic": true, "cost": 1},
+      "Q2": {"description": "Search scheduled tasks on the source host that run as svc_backup", "outcomes": ["found", "not_found"], "reference_outcome": "found", "diagnostic": true, "cost": 2},
+      "Q3": {"description": "Compare failed-logon volume with the 30-day baseline for svc_backup", "outcomes": ["above_baseline", "within_baseline"], "reference_outcome": "above_baseline", "diagnostic": false, "cost": 1},
+      "Q4": {"description": "Check failed logons against other accounts from the same source hosts", "outcomes": ["many_accounts", "only_svc_backup"], "reference_outcome": "only_svc_backup", "diagnostic": true, "redundant_with": ["Q1"], "cost": 1},
+      "Q5": {"description": "Check whether the svc_backup password was changed in the last 14 days", "outcomes": ["changed", "not_changed"], "reference_outcome": "changed", "diagnostic": true, "cost": 2},
+      "Q6": {"description": "Check the time of day of the failed logons", "outcomes": ["business_hours", "after_hours"], "reference_outcome": "after_hours", "diagnostic": false, "cost": 1}
+    },
+    "states": [
+      {"id": "s0", "observed": []},
+      {"id": "s1", "observed": ["Q1"]}
+    ]
+  },
+  {
+    "id": "SC-03",
+    "validated": false,
+    "truth": "malicious",
+    "trigger": "File server FS-07 has sent about 50 MB over HTTPS to one external IP address every 15 minutes for 6 hours.",
+    "initial_evidence": [
+      "FS-07 hosts the engineering department share",
+      "The organization uses a commercial cloud backup service"
+    ],
+    "queries": {
+      "Q1": {"description": "Check whether the destination is on the approved backup vendor list", "outcomes": ["approved_vendor", "not_listed"], "reference_outcome": "not_listed", "diagnostic": true, "cost": 1},
+      "Q2": {"description": "Search FS-07 for archive files created shortly before each transfer", "outcomes": ["archives_created", "none"], "reference_outcome": "archives_created", "diagnostic": true, "cost": 2},
+      "Q3": {"description": "Check the registration age of the destination domain from DNS logs", "outcomes": ["recently_registered", "established"], "reference_outcome": "recently_registered", "diagnostic": true, "redundant_with": ["Q1"], "cost": 1},
+      "Q4": {"description": "Check DLP logs for sensitive-content matches in files read before the transfers", "outcomes": ["dlp_match", "no_match"], "reference_outcome": "dlp_match", "diagnostic": true, "cost": 2},
+      "Q5": {"description": "Compare FS-07 outbound volume today with its 30-day baseline", "outcomes": ["above_baseline", "within_baseline"], "reference_outcome": "above_baseline", "diagnostic": false, "cost": 1},
+      "Q6": {"description": "Check whether the transfers use TLS", "outcomes": ["encrypted", "unencrypted"], "reference_outcome": "encrypted", "diagnostic": false, "cost": 1}
+    },
+    "states": [
+      {"id": "s0", "observed": []},
+      {"id": "s1", "observed": ["Q1"]}
+    ]
+  },
+  {
+    "id": "SC-04",
+    "validated": false,
+    "truth": "benign",
+    "trigger": "New account adm_jlee was created and added to Domain Admins at 02:14 by IT operations user r.patel.",
+    "initial_evidence": [
+      "r.patel is a member of the IT operations team",
+      "No new privileged accounts were created in the previous 30 days"
+    ],
+    "queries": {
+      "Q1": {"description": "Search change management for a ticket covering the account creation", "outcomes": ["approved_emergency_change", "no_record"], "reference_outcome": "approved_emergency_change", "diagnostic": true, "cost": 1},
+      "Q2": {"description": "Check the source host of r.patel's session when the account was created", "outcomes": ["usual_workstation", "unusual_host"], "reference_outcome": "usual_workstation", "diagnostic": true, "cost": 1},
+      "Q3": {"description": "Review adm_jlee activity since creation for logons to many servers or bulk directory reads", "outcomes": ["no_unusual_activity", "lateral_movement_pattern"], "reference_outcome": "no_unusual_activity", "diagnostic": true, "cost": 2},
+      "Q4": {"description": "Check the incident system for an open major incident at 02:14", "outcomes": ["incident_open", "no_incident"], "reference_outcome": "incident_open", "diagnostic": true, "redundant_with": ["Q1"], "cost": 1},
+      "Q5": {"description": "Check whether the creation happened outside business hours", "outcomes": ["after_hours", "business_hours"], "reference_outcome": "after_hours", "diagnostic": false, "cost": 1},
+      "Q6": {"description": "Check whether adm_jlee follows the naming convention for admin accounts", "outcomes": ["follows_convention", "does_not_follow"], "reference_outcome": "follows_convention", "diagnostic": false, "cost": 1}
+    },
+    "states": [
+      {"id": "s0", "observed": []},
+      {"id": "s1", "observed": ["Q5"]}
+    ]
+  },
+  {
+    "id": "SC-05",
+    "validated": false,
+    "truth": "malicious",
+    "trigger": "About 12,000 files on share FS-02 were renamed within 9 minutes by account svc_sync, all with a new .lkd extension.",
+    "initial_evidence": [
+      "svc_sync is used by the file synchronization tool",
+      "A storage migration project is planned for this quarter"
+    ],
+    "queries": {
+      "Q1": {"description": "Measure the content entropy of a sample of renamed files", "outcomes": ["high_entropy", "unchanged_entropy"], "reference_outcome": "high_entropy", "diagnostic": true, "cost": 2},
+      "Q2": {"description": "Check whether canary files on the share were modified", "outcomes": ["canary_modified", "untouched"], "reference_outcome": "canary_modified", "diagnostic": true, "cost": 1},
+      "Q3": {"description": "Search change management for a migration scheduled at this time", "outcomes": ["migration_scheduled", "none_scheduled"], "reference_outcome": "none_scheduled", "diagnostic": true, "cost": 1},
+      "Q4": {"description": "Search the share for new text or HTML files created in each folder", "outcomes": ["new_note_files", "none"], "reference_outcome": "new_note_files", "diagnostic": true, "redundant_with": ["Q2"], "cost": 1},
+      "Q5": {"description": "Compare the rename volume with svc_sync's nightly baseline", "outcomes": ["above_baseline", "within_baseline"], "reference_outcome": "above_baseline", "diagnostic": false, "cost": 1},
+      "Q6": {"description": "Check whether svc_sync's password was used from its usual host", "outcomes": ["usual_host", "other_host"], "reference_outcome": "other_host", "diagnostic": true, "cost": 1}
+    },
+    "states": [
+      {"id": "s0", "observed": []},
+      {"id": "s1", "observed": ["Q3"]}
+    ]
+  },
+  {
+    "id": "SC-06",
+    "validated": false,
+    "truth": "benign",
+    "trigger": "A finance user granted a newly seen third-party app, InvoiceFlow, the Mail.ReadWrite and Files.ReadWrite.All permissions.",
+    "initial_evidence": [
+      "The app was first seen in the tenant today",
+      "The user approved the consent prompt themselves"
+    ],
+    "queries": {
+      "Q1": {"description": "Search procurement records for a purchase of InvoiceFlow", "outcomes": ["approved_purchase", "no_record"], "reference_outcome": "approved_purchase", "diagnostic": true, "cost": 1},
+      "Q2": {"description": "Check whether the app's publisher is verified", "outcomes": ["verified", "unverified"], "reference_outcome": "verified", "diagnostic": true, "cost": 1},
+      "Q3": {"description": "Check the location and network of the sign-in that granted consent", "outcomes": ["corporate_network", "anomalous_location"], "reference_outcome": "corporate_network", "diagnostic": true, "cost": 1},
+      "Q4": {"description": "Check the user's mailbox for new forwarding or deletion rules after consent", "outcomes": ["new_rules", "no_new_rules"], "reference_outcome": "no_new_rules", "diagnostic": true, "cost": 2},
+      "Q5": {"description": "Assess whether the granted permissions are high privilege", "outcomes": ["high_privilege", "low_privilege"], "reference_outcome": "high_privilege", "diagnostic": false, "cost": 1},
+      "Q6": {"description": "Count other users who consented to the same app", "outcomes": ["several_users", "only_this_user"], "reference_outcome": "several_users", "diagnostic": false, "cost": 1}
+    },
+    "states": [
+      {"id": "s0", "observed": []},
+      {"id": "s1", "observed": ["Q5"]}
+    ]
+  }
+]

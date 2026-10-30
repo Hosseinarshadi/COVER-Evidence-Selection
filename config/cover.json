@@ -1,0 +1,58 @@
+{
+  "version": "cover-v3.1",
+  "_note": "All thresholds below were fixed on 2026-10-25 BEFORE any real (non-fake) COVER run. Do not tune them on outcomes; any change must be logged in docs/RESEARCH_DECISIONS.md with a new version string.",
+  "default_model": "claude-haiku-5-5",
+  "max_tokens": 12000,
+  "retries": 3,
+  "rules": {
+    "against_max_prob": 0.35,
+    "rival_modal_min_prob": 0.5,
+    "uncertain_below": 0.6,
+    "restraint_min_gap": 0.3,
+    "unchanged_belief_band": 0.05,
+    "verdict_mass": 0.7,
+    "tier_decisive_leader_max": 0.1,
+    "tier_decisive_rival_min": 0.7,
+    "tier_strong_leader_max": 0.2
+  },
+  "e1": {
+    "reps": 5,
+    "hunch_conditions": [
+      "correct",
+      "wrong"
+    ]
+  },
+  "e2": {
+    "reps": 3,
+    "query_budget": 3,
+    "arms": [
+      "S0",
+      "S1",
+      "C1",
+      "C3",
+      "S0_wrong",
+      "S1_wrong",
+      "C1x_wrong",
+      "C2_wrong"
+    ]
+  },
+  "ceiling_bins": {
+    "low_max": 0.4,
+    "high_min": 0.6
+  },
+  "bootstrap": {
+    "draws": 2000,
+    "seed": 20261025
+  },
+  "budgets_usd": {
+    "e1": 2.0,
+    "e2": 3.0,
+    "pilot": 0.5
+  },
+  "_note_v31": "v3.1 changes (2026-10-25, after the pilot; see docs/RESEARCH_DECISIONS.md): belief wording fix, ACH diagnosticity tiers, independent contrast verifier, verifier-based restraint. Tier thresholds below were set from the rubric wording, not fitted to pilot scores.",
+  "ait": {
+    "e1_reps": 3,
+    "e2_reps": 2,
+    "_note": "Held-out AIT run: use --dataset ait --reps 3 for e1 and --reps 2 for e2; run ONCE with the frozen design."
+  }
+}

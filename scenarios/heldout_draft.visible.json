@@ -1,0 +1,148 @@
+[
+ {
+  "id": "SC-07",
+  "trigger": "The remote management tool RMMAgent opened an interactive session to server APP-12 at 23:40 and ran net.exe user commands.",
+  "initial_evidence": [
+   "An approved patching window for APP-12 ran from 22:00 to 23:30 tonight",
+   "RMMAgent is the IT team's standard remote management tool"
+  ],
+  "queries": {
+   "Q1": {
+    "description": "Match the RMMAgent session to an operator account in the tool's audit log",
+    "outcomes": [
+     "known_it_operator",
+     "unknown_or_new_operator"
+    ],
+    "cost": 1
+   },
+   "Q2": {
+    "description": "Check whether the net.exe commands created or modified accounts",
+    "outcomes": [
+     "accounts_created",
+     "read_only_listing"
+    ],
+    "cost": 1
+   },
+   "Q3": {
+    "description": "Check whether patch installation events appear on APP-12 tonight",
+    "outcomes": [
+     "patches_installed",
+     "no_patch_events"
+    ],
+    "cost": 1
+   },
+   "Q4": {
+    "description": "Check the source IP of the RMMAgent console session",
+    "outcomes": [
+     "corporate_range",
+     "external_range"
+    ],
+    "cost": 1
+   },
+   "Q5": {
+    "description": "Check whether APP-12 rebooted tonight",
+    "outcomes": [
+     "rebooted",
+     "no_reboot"
+    ],
+    "cost": 1
+   },
+   "Q6": {
+    "description": "Check whether other servers had RMMAgent sessions tonight",
+    "outcomes": [
+     "many_servers",
+     "only_app12"
+    ],
+    "cost": 1
+   }
+  },
+  "states": [
+   {
+    "id": "s0",
+    "observed": []
+   },
+   {
+    "id": "s1",
+    "observed": [
+     {
+      "query_id": "Q3",
+      "outcome": "patches_installed"
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "id": "SC-08",
+  "trigger": "Host WS-301 made SMB connections to 140 internal hosts in 10 minutes and queried the domain controller for group memberships.",
+  "initial_evidence": [
+   "WS-301 belongs to the internal security team",
+   "The domain controller logged the group queries under account sec_audit"
+  ],
+  "queries": {
+   "Q1": {
+    "description": "Search the change calendar for an authorized security assessment this week",
+    "outcomes": [
+     "assessment_scheduled",
+     "no_record"
+    ],
+    "cost": 1
+   },
+   "Q2": {
+    "description": "Check whether any credentials were used successfully on the contacted hosts",
+    "outcomes": [
+     "successful_logons",
+     "no_successful_logons"
+    ],
+    "cost": 2
+   },
+   "Q3": {
+    "description": "Compare the scanning tool's binary hash with the security team's approved tool list",
+    "outcomes": [
+     "approved_tool",
+     "unknown_binary"
+    ],
+    "cost": 1
+   },
+   "Q4": {
+    "description": "Check whether the connections happened during business hours",
+    "outcomes": [
+     "business_hours",
+     "after_hours"
+    ],
+    "cost": 1
+   },
+   "Q5": {
+    "description": "Count the distinct ports contacted on each host",
+    "outcomes": [
+     "one_port",
+     "many_ports"
+    ],
+    "cost": 1
+   },
+   "Q6": {
+    "description": "Check whether sec_audit is a member of privileged groups",
+    "outcomes": [
+     "privileged",
+     "not_privileged"
+    ],
+    "cost": 1
+   }
+  },
+  "states": [
+   {
+    "id": "s0",
+    "observed": []
+   },
+   {
+    "id": "s1",
+    "observed": [
+     {
+      "query_id": "Q4",
+      "outcome": "business_hours"
+     }
+    ]
+   }
+  ]
+ }
+]

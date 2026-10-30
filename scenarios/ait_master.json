@@ -1,0 +1,2522 @@
+[
+ {
+  "id": "AIT-01",
+  "validated": true,
+  "truth": "malicious",
+  "case_type": "ait_real_webshell_cmd",
+  "_provenance": {
+   "ait_scenario": "wardbeck",
+   "row": 82583,
+   "time": 1642940023,
+   "short": "A-Acc-Ent2",
+   "time_label": "webshell",
+   "event_label": "webshell_cmd",
+   "note": "Truth from AIT-ADS per-event labels; evidence map by the fixed LR rule above."
+  },
+  "trigger": "AMiner: High entropy in Apache Access request. on host intranet_server (IP in alert: 172.21.241.88).",
+  "initial_evidence": [
+   "Detector family: AMiner",
+   "Host name: intranet_server",
+   "Environment: small enterprise network (web, mail, file share, VPN, DNS, firewall, monitoring)"
+  ],
+  "queries": {
+   "Q1": {
+    "description": "Count other alerts from the same host in the 10 minutes before and after this alert",
+    "outcomes": [
+     "none",
+     "1_to_20",
+     "more_than_20"
+    ],
+    "reference_outcome": "more_than_20",
+    "diagnostic": false,
+    "lr_toward_truth": 1.059,
+    "cost": 1
+   },
+   "Q2": {
+    "description": "Check how often this alert type fired on this host in the previous 24 hours",
+    "outcomes": [
+     "never",
+     "1_to_10_times",
+     "more_than_10_times"
+    ],
+    "reference_outcome": "never",
+    "diagnostic": true,
+    "lr_toward_truth": 3.024,
+    "cost": 2
+   },
+   "Q3": {
+    "description": "Check whether a different detector family (Wazuh, Suricata or AMiner) alerted on this host within 10 minutes",
+    "outcomes": [
+     "yes",
+     "no"
+    ],
+    "reference_outcome": "yes",
+    "diagnostic": false,
+    "lr_toward_truth": 1.06,
+    "cost": 1
+   },
+   "Q4": {
+    "description": "Check whether the same alert type fired on other hosts within 30 minutes",
+    "outcomes": [
+     "only_this_host",
+     "other_hosts_too"
+    ],
+    "reference_outcome": "only_this_host",
+    "diagnostic": true,
+    "lr_toward_truth": 3.143,
+    "cost": 1
+   },
+   "Q5": {
+    "description": "Check whether the same IP address appears in alerts on other hosts within 30 minutes",
+    "outcomes": [
+     "yes",
+     "no"
+    ],
+    "reference_outcome": "no",
+    "diagnostic": false,
+    "lr_toward_truth": 1.0,
+    "cost": 1
+   },
+   "Q6": {
+    "description": "Check whether this host raised alert types it had not raised in the previous 24 hours, within 30 minutes of this alert",
+    "outcomes": [
+     "yes",
+     "no"
+    ],
+    "reference_outcome": "yes",
+    "diagnostic": true,
+    "lr_toward_truth": 3.403,
+    "cost": 2
+   },
+   "Q7": {
+    "description": "Count distinct alert types on this host within 10 minutes of this alert",
+    "outcomes": [
+     "one",
+     "two_to_four",
+     "five_or_more"
+    ],
+    "reference_outcome": "five_or_more",
+    "diagnostic": false,
+    "lr_toward_truth": 1.397,
+    "cost": 1
+   },
+   "Q8": {
+    "description": "Check whether the alert fired outside business hours (08:00-18:00 UTC)",
+    "outcomes": [
+     "business_hours",
+     "outside_business_hours"
+    ],
+    "reference_outcome": "business_hours",
+    "diagnostic": false,
+    "lr_toward_truth": 0.759,
+    "cost": 1
+   }
+  },
+  "states": [
+   {
+    "id": "s0",
+    "observed": []
+   },
+   {
+    "id": "s1",
+    "observed": [
+     "Q8"
+    ]
+   }
+  ]
+ },
+ {
+  "id": "AIT-02",
+  "validated": true,
+  "truth": "benign",
+  "case_type": "ait_real_lookalike_routine",
+  "_provenance": {
+   "ait_scenario": "wheeler",
+   "row": 1187,
+   "time": 1643176762,
+   "short": "A-Dns-Frq",
+   "time_label": "false_positive",
+   "event_label": "-",
+   "note": "Truth from AIT-ADS per-event labels; evidence map by the fixed LR rule above."
+  },
+  "trigger": "AMiner: Unusual occurrence frequencies of query records in DNS logs. on host inet-firewall (IP in alert: 172.27.180.4).",
+  "initial_evidence": [
+   "Detector family: AMiner",
+   "Host name: inet-firewall",
+   "Environment: small enterprise network (web, mail, file share, VPN, DNS, firewall, monitoring)"
+  ],
+  "queries": {
+   "Q1": {
+    "description": "Count other alerts from the same host in the 10 minutes before and after this alert",
+    "outcomes": [
+     "none",
+     "1_to_20",
+     "more_than_20"
+    ],
+    "reference_outcome": "more_than_20",
+    "diagnostic": false,
+    "lr_toward_truth": 0.934,
+    "cost": 1
+   },
+   "Q2": {
+    "description": "Check how often this alert type fired on this host in the previous 24 hours",
+    "outcomes": [
+     "never",
+     "1_to_10_times",
+     "more_than_10_times"
+    ],
+    "reference_outcome": "1_to_10_times",
+    "diagnostic": false,
+    "lr_toward_truth": 1.134,
+    "cost": 2
+   },
+   "Q3": {
+    "description": "Check whether a different detector family (Wazuh, Suricata or AMiner) alerted on this host within 10 minutes",
+    "outcomes": [
+     "yes",
+     "no"
+    ],
+    "reference_outcome": "yes",
+    "diagnostic": false,
+    "lr_toward_truth": 0.934,
+    "cost": 1
+   },
+   "Q4": {
+    "description": "Check whether the same alert type fired on other hosts within 30 minutes",
+    "outcomes": [
+     "only_this_host",
+     "other_hosts_too"
+    ],
+    "reference_outcome": "other_hosts_too",
+    "diagnostic": false,
+    "lr_toward_truth": 1.316,
+    "cost": 1
+   },
+   "Q5": {
+    "description": "Check whether the same IP address appears in alerts on other hosts within 30 minutes",
+    "outcomes": [
+     "yes",
+     "no"
+    ],
+    "reference_outcome": "no",
+    "diagnostic": false,
+    "lr_toward_truth": 1.0,
+    "cost": 1
+   },
+   "Q6": {
+    "description": "Check whether this host raised alert types it had not raised in the previous 24 hours, within 30 minutes of this alert",
+    "outcomes": [
+     "yes",
+     "no"
+    ],
+    "reference_outcome": "yes",
+    "diagnostic": false,
+    "lr_toward_truth": 0.316,
+    "cost": 2
+   },
+   "Q7": {
+    "description": "Count distinct alert types on this host within 10 minutes of this alert",
+    "outcomes": [
+     "one",
+     "two_to_four",
+     "five_or_more"
+    ],
+    "reference_outcome": "five_or_more",
+    "diagnostic": false,
+    "lr_toward_truth": 0.667,
+    "cost": 1
+   },
+   "Q8": {
+    "description": "Check whether the alert fired outside business hours (08:00-18:00 UTC)",
+    "outcomes": [
+     "business_hours",
+     "outside_business_hours"
+    ],
+    "reference_outcome": "outside_business_hours",
+    "diagnostic": false,
+    "lr_toward_truth": 0.795,
+    "cost": 1
+   }
+  },
+  "states": [
+   {
+    "id": "s0",
+    "observed": []
+   },
+   {
+    "id": "s1",
+    "observed": [
+     "Q8"
+    ]
+   }
+  ]
+ },
+ {
+  "id": "AIT-03",
+  "validated": true,
+  "truth": "benign",
+  "case_type": "ait_real_lookalike_inside_attack_window",
+  "_provenance": {
+   "ait_scenario": "fox",
+   "row": 457336,
+   "time": 1642510208,
+   "short": "S-Tls-Rec",
+   "time_label": "cracking",
+   "event_label": "-",
+   "note": "Truth from AIT-ADS per-event labels; evidence map by the fixed LR rule above."
+  },
+  "trigger": "Suricata: Alert - SURICATA TLS invalid record/traffic on host vpn (IP in alert: 172.17.130.196).",
+  "initial_evidence": [
+   "Detector family: Suricata",
+   "Host name: vpn",
+   "Environment: small enterprise network (web, mail, file share, VPN, DNS, firewall, monitoring)"
+  ],
+  "queries": {
+   "Q1": {
+    "description": "Count other alerts from the same host in the 10 minutes before and after this alert",
+    "outcomes": [
+     "none",
+     "1_to_20",
+     "more_than_20"
+    ],
+    "reference_outcome": "more_than_20",
+    "diagnostic": false,
+    "lr_toward_truth": 0.937,
+    "cost": 1
+   },
+   "Q2": {
+    "description": "Check how often this alert type fired on this host in the previous 24 hours",
+    "outcomes": [
+     "never",
+     "1_to_10_times",
+     "more_than_10_times"
+    ],
+    "reference_outcome": "more_than_10_times",
+    "diagnostic": false,
+    "lr_toward_truth": 1.09,
+    "cost": 2
+   },
+   "Q3": {
+    "description": "Check whether a different detector family (Wazuh, Suricata or AMiner) alerted on this host within 10 minutes",
+    "outcomes": [
+     "yes",
+     "no"
+    ],
+    "reference_outcome": "yes",
+    "diagnostic": false,
+    "lr_toward_truth": 0.94,
+    "cost": 1
+   },
+   "Q4": {
+    "description": "Check whether the same alert type fired on other hosts within 30 minutes",
+    "outcomes": [
+     "only_this_host",
+     "other_hosts_too"
+    ],
+    "reference_outcome": "other_hosts_too",
+    "diagnostic": false,
+    "lr_toward_truth": 1.358,
+    "cost": 1
+   },
+   "Q5": {
+    "description": "Check whether the same IP address appears in alerts on other hosts within 30 minutes",
+    "outcomes": [
+     "yes",
+     "no"
+    ],
+    "reference_outcome": "no",
+    "diagnostic": false,
+    "lr_toward_truth": 1.0,
+    "cost": 1
+   },
+   "Q6": {
+    "description": "Check whether this host raised alert types it had not raised in the previous 24 hours, within 30 minutes of this alert",
+    "outcomes": [
+     "yes",
+     "no"
+    ],
+    "reference_outcome": "no",
+    "diagnostic": true,
+    "lr_toward_truth": 7.315,
+    "cost": 2
+   },
+   "Q7": {
+    "description": "Count distinct alert types on this host within 10 minutes of this alert",
+    "outcomes": [
+     "one",
+     "two_to_four",
+     "five_or_more"
+    ],
+    "reference_outcome": "two_to_four",
+    "diagnostic": true,
+    "lr_toward_truth": 3.47,
+    "cost": 1
+   },
+   "Q8": {
+    "description": "Check whether the alert fired outside business hours (08:00-18:00 UTC)",
+    "outcomes": [
+     "business_hours",
+     "outside_business_hours"
+    ],
+    "reference_outcome": "business_hours",
+    "diagnostic": false,
+    "lr_toward_truth": 1.314,
+    "cost": 1
+   }
+  },
+  "states": [
+   {
+    "id": "s0",
+    "observed": []
+   },
+   {
+    "id": "s1",
+    "observed": [
+     "Q8"
+    ]
+   }
+  ]
+ },
+ {
+  "id": "AIT-04",
+  "validated": true,
+  "truth": "benign",
+  "case_type": "ait_real_lookalike_inside_attack_window",
+  "_provenance": {
+   "ait_scenario": "harrison",
+   "row": 152914,
+   "time": 1644304580,
+   "short": "A-All-Evt",
+   "time_label": "service_scans",
+   "event_label": "-",
+   "note": "Truth from AIT-ADS per-event labels; evidence map by the fixed LR rule above."
+  },
+  "trigger": "AMiner: New event type. on host mail (IP in alert: 10.237.2.255).",
+  "initial_evidence": [
+   "Detector family: AMiner",
+   "Host name: mail",
+   "Environment: small enterprise network (web, mail, file share, VPN, DNS, firewall, monitoring)"
+  ],
+  "queries": {
+   "Q1": {
+    "description": "Count other alerts from the same host in the 10 minutes before and after this alert",
+    "outcomes": [
+     "none",
+     "1_to_20",
+     "more_than_20"
+    ],
+    "reference_outcome": "more_than_20",
+    "diagnostic": false,
+    "lr_toward_truth": 0.939,
+    "cost": 1
+   },
+   "Q2": {
+    "description": "Check how often this alert type fired on this host in the previous 24 hours",
+    "outcomes": [
+     "never",
+     "1_to_10_times",
+     "more_than_10_times"
+    ],
+    "reference_outcome": "never",
+    "diagnostic": false,
+    "lr_toward_truth": 0.31,
+    "cost": 2
+   },
+   "Q3": {
+    "description": "Check whether a different detector family (Wazuh, Suricata or AMiner) alerted on this host within 10 minutes",
+    "outcomes": [
+     "yes",
+     "no"
+    ],
+    "reference_outcome": "yes",
+    "diagnostic": false,
+    "lr_toward_truth": 0.937,
+    "cost": 1
+   },
+   "Q4": {
+    "description": "Check whether the same alert type fired on other hosts within 30 minutes",
+    "outcomes": [
+     "only_this_host",
+     "other_hosts_too"
+    ],
+    "reference_outcome": "other_hosts_too",
+    "diagnostic": false,
+    "lr_toward_truth": 1.294,
+    "cost": 1
+   },
+   "Q5": {
+    "description": "Check whether the same IP address appears in alerts on other hosts within 30 minutes",
+    "outcomes": [
+     "yes",
+     "no"
+    ],
+    "reference_outcome": "no",
+    "diagnostic": false,
+    "lr_toward_truth": 1.0,
+    "cost": 1
+   },
+   "Q6": {
+    "description": "Check whether this host raised alert types it had not raised in the previous 24 hours, within 30 minutes of this alert",
+    "outcomes": [
+     "yes",
+     "no"
+    ],
+    "reference_outcome": "yes",
+    "diagnostic": false,
+    "lr_toward_truth": 0.296,
+    "cost": 2
+   },
+   "Q7": {
+    "description": "Count distinct alert types on this host within 10 minutes of this alert",
+    "outcomes": [
+     "one",
+     "two_to_four",
+     "five_or_more"
+    ],
+    "reference_outcome": "five_or_more",
+    "diagnostic": false,
+    "lr_toward_truth": 0.698,
+    "cost": 1
+   },
+   "Q8": {
+    "description": "Check whether the alert fired outside business hours (08:00-18:00 UTC)",
+    "outcomes": [
+     "business_hours",
+     "outside_business_hours"
+    ],
+    "reference_outcome": "outside_business_hours",
+    "diagnostic": false,
+    "lr_toward_truth": 0.804,
+    "cost": 1
+   }
+  },
+  "states": [
+   {
+    "id": "s0",
+    "observed": []
+   },
+   {
+    "id": "s1",
+    "observed": [
+     "Q8"
+    ]
+   }
+  ]
+ },
+ {
+  "id": "AIT-05",
+  "validated": true,
+  "truth": "malicious",
+  "case_type": "ait_real_wpscan",
+  "_provenance": {
+   "ait_scenario": "harrison",
+   "row": 157427,
+   "time": 1644305347,
+   "short": "W-All-Mul3",
+   "time_label": "wpscan",
+   "event_label": "wpscan",
+   "note": "Truth from AIT-ADS per-event labels; evidence map by the fixed LR rule above."
+  },
+  "trigger": "Wazuh: Multiple web server 400 error codes from same source ip. on host intranet_server (IP in alert: 192.168.131.215).",
+  "initial_evidence": [
+   "Detector family: Wazuh",
+   "Host name: intranet_server",
+   "Environment: small enterprise network (web, mail, file share, VPN, DNS, firewall, monitoring)"
+  ],
+  "queries": {
+   "Q1": {
+    "description": "Count other alerts from the same host in the 10 minutes before and after this alert",
+    "outcomes": [
+     "none",
+     "1_to_20",
+     "more_than_20"
+    ],
+    "reference_outcome": "more_than_20",
+    "diagnostic": false,
+    "lr_toward_truth": 1.065,
+    "cost": 1
+   },
+   "Q2": {
+    "description": "Check how often this alert type fired on this host in the previous 24 hours",
+    "outcomes": [
+     "never",
+     "1_to_10_times",
+     "more_than_10_times"
+    ],
+    "reference_outcome": "more_than_10_times",
+    "diagnostic": false,
+    "lr_toward_truth": 0.92,
+    "cost": 2
+   },
+   "Q3": {
+    "description": "Check whether a different detector family (Wazuh, Suricata or AMiner) alerted on this host within 10 minutes",
+    "outcomes": [
+     "yes",
+     "no"
+    ],
+    "reference_outcome": "yes",
+    "diagnostic": false,
+    "lr_toward_truth": 1.067,
+    "cost": 1
+   },
+   "Q4": {
+    "description": "Check whether the same alert type fired on other hosts within 30 minutes",
+    "outcomes": [
+     "only_this_host",
+     "other_hosts_too"
+    ],
+    "reference_outcome": "only_this_host",
+    "diagnostic": true,
+    "lr_toward_truth": 2.792,
+    "cost": 1
+   },
+   "Q5": {
+    "description": "Check whether the same IP address appears in alerts on other hosts within 30 minutes",
+    "outcomes": [
+     "yes",
+     "no"
+    ],
+    "reference_outcome": "no",
+    "diagnostic": false,
+    "lr_toward_truth": 1.0,
+    "cost": 1
+   },
+   "Q6": {
+    "description": "Check whether this host raised alert types it had not raised in the previous 24 hours, within 30 minutes of this alert",
+    "outcomes": [
+     "yes",
+     "no"
+    ],
+    "reference_outcome": "yes",
+    "diagnostic": true,
+    "lr_toward_truth": 3.377,
+    "cost": 2
+   },
+   "Q7": {
+    "description": "Count distinct alert types on this host within 10 minutes of this alert",
+    "outcomes": [
+     "one",
+     "two_to_four",
+     "five_or_more"
+    ],
+    "reference_outcome": "five_or_more",
+    "diagnostic": false,
+    "lr_toward_truth": 1.432,
+    "cost": 1
+   },
+   "Q8": {
+    "description": "Check whether the alert fired outside business hours (08:00-18:00 UTC)",
+    "outcomes": [
+     "business_hours",
+     "outside_business_hours"
+    ],
+    "reference_outcome": "outside_business_hours",
+    "diagnostic": false,
+    "lr_toward_truth": 1.243,
+    "cost": 1
+   }
+  },
+  "states": [
+   {
+    "id": "s0",
+    "observed": []
+   },
+   {
+    "id": "s1",
+    "observed": [
+     "Q8"
+    ]
+   }
+  ]
+ },
+ {
+  "id": "AIT-06",
+  "validated": true,
+  "truth": "benign",
+  "case_type": "ait_real_lookalike_routine",
+  "_provenance": {
+   "ait_scenario": "wilson",
+   "row": 77895,
+   "time": 1644047558,
+   "short": "W-Acc-Cms",
+   "time_label": "false_positive",
+   "event_label": "-",
+   "note": "Truth from AIT-ADS per-event labels; evidence map by the fixed LR rule above."
+  },
+  "trigger": "Wazuh: CMS (WordPress or Joomla) login attempt. on host intranet_server (IP in alert: 172.26.243.167).",
+  "initial_evidence": [
+   "Detector family: Wazuh",
+   "Host name: intranet_server",
+   "Environment: small enterprise network (web, mail, file share, VPN, DNS, firewall, monitoring)"
+  ],
+  "queries": {
+   "Q1": {
+    "description": "Count other alerts from the same host in the 10 minutes before and after this alert",
+    "outcomes": [
+     "none",
+     "1_to_20",
+     "more_than_20"
+    ],
+    "reference_outcome": "1_to_20",
+    "diagnostic": true,
+    "lr_toward_truth": 3.172,
+    "cost": 1
+   },
+   "Q2": {
+    "description": "Check how often this alert type fired on this host in the previous 24 hours",
+    "outcomes": [
+     "never",
+     "1_to_10_times",
+     "more_than_10_times"
+    ],
+    "reference_outcome": "more_than_10_times",
+    "diagnostic": false,
+    "lr_toward_truth": 1.067,
+    "cost": 2
+   },
+   "Q3": {
+    "description": "Check whether a different detector family (Wazuh, Suricata or AMiner) alerted on this host within 10 minutes",
+    "outcomes": [
+     "yes",
+     "no"
+    ],
+    "reference_outcome": "yes",
+    "diagnostic": false,
+    "lr_toward_truth": 0.934,
+    "cost": 1
+   },
+   "Q4": {
+    "description": "Check whether the same alert type fired on other hosts within 30 minutes",
+    "outcomes": [
+     "only_this_host",
+     "other_hosts_too"
+    ],
+    "reference_outcome": "only_this_host",
+    "diagnostic": false,
+    "lr_toward_truth": 0.34,
+    "cost": 1
+   },
+   "Q5": {
+    "description": "Check whether the same IP address appears in alerts on other hosts within 30 minutes",
+    "outcomes": [
+     "yes",
+     "no"
+    ],
+    "reference_outcome": "no",
+    "diagnostic": false,
+    "lr_toward_truth": 1.0,
+    "cost": 1
+   },
+   "Q6": {
+    "description": "Check whether this host raised alert types it had not raised in the previous 24 hours, within 30 minutes of this alert",
+    "outcomes": [
+     "yes",
+     "no"
+    ],
+    "reference_outcome": "yes",
+    "diagnostic": false,
+    "lr_toward_truth": 0.309,
+    "cost": 2
+   },
+   "Q7": {
+    "description": "Count distinct alert types on this host within 10 minutes of this alert",
+    "outcomes": [
+     "one",
+     "two_to_four",
+     "five_or_more"
+    ],
+    "reference_outcome": "two_to_four",
+    "diagnostic": true,
+    "lr_toward_truth": 3.905,
+    "cost": 1
+   },
+   "Q8": {
+    "description": "Check whether the alert fired outside business hours (08:00-18:00 UTC)",
+    "outcomes": [
+     "business_hours",
+     "outside_business_hours"
+    ],
+    "reference_outcome": "outside_business_hours",
+    "diagnostic": false,
+    "lr_toward_truth": 0.592,
+    "cost": 1
+   }
+  },
+  "states": [
+   {
+    "id": "s0",
+    "observed": []
+   },
+   {
+    "id": "s1",
+    "observed": [
+     "Q8"
+    ]
+   }
+  ]
+ },
+ {
+  "id": "AIT-07",
+  "validated": true,
+  "truth": "malicious",
+  "case_type": "ait_real_online_cracking",
+  "_provenance": {
+   "ait_scenario": "fox",
+   "row": 457010,
+   "time": 1642509546,
+   "short": "S-Htt-Mat",
+   "time_label": "cracking",
+   "event_label": "online_cracking",
+   "note": "Truth from AIT-ADS per-event labels; evidence map by the fixed LR rule above."
+  },
+  "trigger": "Suricata: Alert - SURICATA HTTP unable to match response to request on host inet-firewall (IP in alert: 10.35.32.1).",
+  "initial_evidence": [
+   "Detector family: Suricata",
+   "Host name: inet-firewall",
+   "Environment: small enterprise network (web, mail, file share, VPN, DNS, firewall, monitoring)"
+  ],
+  "queries": {
+   "Q1": {
+    "description": "Count other alerts from the same host in the 10 minutes before and after this alert",
+    "outcomes": [
+     "none",
+     "1_to_20",
+     "more_than_20"
+    ],
+    "reference_outcome": "more_than_20",
+    "diagnostic": false,
+    "lr_toward_truth": 1.067,
+    "cost": 1
+   },
+   "Q2": {
+    "description": "Check how often this alert type fired on this host in the previous 24 hours",
+    "outcomes": [
+     "never",
+     "1_to_10_times",
+     "more_than_10_times"
+    ],
+    "reference_outcome": "1_to_10_times",
+    "diagnostic": false,
+    "lr_toward_truth": 1.111,
+    "cost": 2
+   },
+   "Q3": {
+    "description": "Check whether a different detector family (Wazuh, Suricata or AMiner) alerted on this host within 10 minutes",
+    "outcomes": [
+     "yes",
+     "no"
+    ],
+    "reference_outcome": "yes",
+    "diagnostic": false,
+    "lr_toward_truth": 1.064,
+    "cost": 1
+   },
+   "Q4": {
+    "description": "Check whether the same alert type fired on other hosts within 30 minutes",
+    "outcomes": [
+     "only_this_host",
+     "other_hosts_too"
+    ],
+    "reference_outcome": "other_hosts_too",
+    "diagnostic": false,
+    "lr_toward_truth": 0.737,
+    "cost": 1
+   },
+   "Q5": {
+    "description": "Check whether the same IP address appears in alerts on other hosts within 30 minutes",
+    "outcomes": [
+     "yes",
+     "no"
+    ],
+    "reference_outcome": "no",
+    "diagnostic": false,
+    "lr_toward_truth": 1.0,
+    "cost": 1
+   },
+   "Q6": {
+    "description": "Check whether this host raised alert types it had not raised in the previous 24 hours, within 30 minutes of this alert",
+    "outcomes": [
+     "yes",
+     "no"
+    ],
+    "reference_outcome": "yes",
+    "diagnostic": true,
+    "lr_toward_truth": 3.323,
+    "cost": 2
+   },
+   "Q7": {
+    "description": "Count distinct alert types on this host within 10 minutes of this alert",
+    "outcomes": [
+     "one",
+     "two_to_four",
+     "five_or_more"
+    ],
+    "reference_outcome": "five_or_more",
+    "diagnostic": false,
+    "lr_toward_truth": 1.367,
+    "cost": 1
+   },
+   "Q8": {
+    "description": "Check whether the alert fired outside business hours (08:00-18:00 UTC)",
+    "outcomes": [
+     "business_hours",
+     "outside_business_hours"
+    ],
+    "reference_outcome": "business_hours",
+    "diagnostic": false,
+    "lr_toward_truth": 0.761,
+    "cost": 1
+   }
+  },
+  "states": [
+   {
+    "id": "s0",
+    "observed": []
+   },
+   {
+    "id": "s1",
+    "observed": [
+     "Q8"
+    ]
+   }
+  ]
+ },
+ {
+  "id": "AIT-08",
+  "validated": true,
+  "truth": "malicious",
+  "case_type": "ait_real_crack_passwords",
+  "_provenance": {
+   "ait_scenario": "russellmitchell",
+   "row": 37058,
+   "time": 1642997677,
+   "short": "A-Mon-Avg",
+   "time_label": "cracking",
+   "event_label": "crack_passwords",
+   "note": "Truth from AIT-ADS per-event labels; evidence map by the fixed LR rule above."
+  },
+  "trigger": "AMiner: CPU value deviates from average in monitoring logs. on host monitoring (IP in alert: 10.143.0.35).",
+  "initial_evidence": [
+   "Detector family: AMiner",
+   "Host name: monitoring",
+   "Environment: small enterprise network (web, mail, file share, VPN, DNS, firewall, monitoring)"
+  ],
+  "queries": {
+   "Q1": {
+    "description": "Count other alerts from the same host in the 10 minutes before and after this alert",
+    "outcomes": [
+     "none",
+     "1_to_20",
+     "more_than_20"
+    ],
+    "reference_outcome": "none",
+    "diagnostic": false,
+    "lr_toward_truth": 0.275,
+    "cost": 1
+   },
+   "Q2": {
+    "description": "Check how often this alert type fired on this host in the previous 24 hours",
+    "outcomes": [
+     "never",
+     "1_to_10_times",
+     "more_than_10_times"
+    ],
+    "reference_outcome": "never",
+    "diagnostic": true,
+    "lr_toward_truth": 3.258,
+    "cost": 2
+   },
+   "Q3": {
+    "description": "Check whether a different detector family (Wazuh, Suricata or AMiner) alerted on this host within 10 minutes",
+    "outcomes": [
+     "yes",
+     "no"
+    ],
+    "reference_outcome": "no",
+    "diagnostic": false,
+    "lr_toward_truth": 0.147,
+    "cost": 1
+   },
+   "Q4": {
+    "description": "Check whether the same alert type fired on other hosts within 30 minutes",
+    "outcomes": [
+     "only_this_host",
+     "other_hosts_too"
+    ],
+    "reference_outcome": "only_this_host",
+    "diagnostic": true,
+    "lr_toward_truth": 3.174,
+    "cost": 1
+   },
+   "Q5": {
+    "description": "Check whether the same IP address appears in alerts on other hosts within 30 minutes",
+    "outcomes": [
+     "yes",
+     "no"
+    ],
+    "reference_outcome": "no",
+    "diagnostic": false,
+    "lr_toward_truth": 1.0,
+    "cost": 1
+   },
+   "Q6": {
+    "description": "Check whether this host raised alert types it had not raised in the previous 24 hours, within 30 minutes of this alert",
+    "outcomes": [
+     "yes",
+     "no"
+    ],
+    "reference_outcome": "yes",
+    "diagnostic": true,
+    "lr_toward_truth": 3.584,
+    "cost": 2
+   },
+   "Q7": {
+    "description": "Count distinct alert types on this host within 10 minutes of this alert",
+    "outcomes": [
+     "one",
+     "two_to_four",
+     "five_or_more"
+    ],
+    "reference_outcome": "one",
+    "diagnostic": false,
+    "lr_toward_truth": 0.21,
+    "cost": 1
+   },
+   "Q8": {
+    "description": "Check whether the alert fired outside business hours (08:00-18:00 UTC)",
+    "outcomes": [
+     "business_hours",
+     "outside_business_hours"
+    ],
+    "reference_outcome": "outside_business_hours",
+    "diagnostic": false,
+    "lr_toward_truth": 1.25,
+    "cost": 1
+   }
+  },
+  "states": [
+   {
+    "id": "s0",
+    "observed": []
+   },
+   {
+    "id": "s1",
+    "observed": [
+     "Q8"
+    ]
+   }
+  ]
+ },
+ {
+  "id": "AIT-09",
+  "validated": true,
+  "truth": "malicious",
+  "case_type": "ait_real_dirb",
+  "_provenance": {
+   "ait_scenario": "wheeler",
+   "row": 330486,
+   "time": 1643528804,
+   "short": "W-Acc-400",
+   "time_label": "dirb",
+   "event_label": "dirb",
+   "note": "Truth from AIT-ADS per-event labels; evidence map by the fixed LR rule above."
+  },
+  "trigger": "Wazuh: Web server 400 error code. on host intranet_server (IP in alert: 192.168.2.114).",
+  "initial_evidence": [
+   "Detector family: Wazuh",
+   "Host name: intranet_server",
+   "Environment: small enterprise network (web, mail, file share, VPN, DNS, firewall, monitoring)"
+  ],
+  "queries": {
+   "Q1": {
+    "description": "Count other alerts from the same host in the 10 minutes before and after this alert",
+    "outcomes": [
+     "none",
+     "1_to_20",
+     "more_than_20"
+    ],
+    "reference_outcome": "more_than_20",
+    "diagnostic": false,
+    "lr_toward_truth": 1.07,
+    "cost": 1
+   },
+   "Q2": {
+    "description": "Check how often this alert type fired on this host in the previous 24 hours",
+    "outcomes": [
+     "never",
+     "1_to_10_times",
+     "more_than_10_times"
+    ],
+    "reference_outcome": "more_than_10_times",
+    "diagnostic": false,
+    "lr_toward_truth": 0.935,
+    "cost": 2
+   },
+   "Q3": {
+    "description": "Check whether a different detector family (Wazuh, Suricata or AMiner) alerted on this host within 10 minutes",
+    "outcomes": [
+     "yes",
+     "no"
+    ],
+    "reference_outcome": "yes",
+    "diagnostic": false,
+    "lr_toward_truth": 1.071,
+    "cost": 1
+   },
+   "Q4": {
+    "description": "Check whether the same alert type fired on other hosts within 30 minutes",
+    "outcomes": [
+     "only_this_host",
+     "other_hosts_too"
+    ],
+    "reference_outcome": "other_hosts_too",
+    "diagnostic": false,
+    "lr_toward_truth": 0.76,
+    "cost": 1
+   },
+   "Q5": {
+    "description": "Check whether the same IP address appears in alerts on other hosts within 30 minutes",
+    "outcomes": [
+     "yes",
+     "no"
+    ],
+    "reference_outcome": "no",
+    "diagnostic": false,
+    "lr_toward_truth": 1.0,
+    "cost": 1
+   },
+   "Q6": {
+    "description": "Check whether this host raised alert types it had not raised in the previous 24 hours, within 30 minutes of this alert",
+    "outcomes": [
+     "yes",
+     "no"
+    ],
+    "reference_outcome": "yes",
+    "diagnostic": true,
+    "lr_toward_truth": 3.166,
+    "cost": 2
+   },
+   "Q7": {
+    "description": "Count distinct alert types on this host within 10 minutes of this alert",
+    "outcomes": [
+     "one",
+     "two_to_four",
+     "five_or_more"
+    ],
+    "reference_outcome": "five_or_more",
+    "diagnostic": false,
+    "lr_toward_truth": 1.499,
+    "cost": 1
+   },
+   "Q8": {
+    "description": "Check whether the alert fired outside business hours (08:00-18:00 UTC)",
+    "outcomes": [
+     "business_hours",
+     "outside_business_hours"
+    ],
+    "reference_outcome": "outside_business_hours",
+    "diagnostic": false,
+    "lr_toward_truth": 1.258,
+    "cost": 1
+   }
+  },
+  "states": [
+   {
+    "id": "s0",
+    "observed": []
+   },
+   {
+    "id": "s1",
+    "observed": [
+     "Q8"
+    ]
+   }
+  ]
+ },
+ {
+  "id": "AIT-10",
+  "validated": true,
+  "truth": "benign",
+  "case_type": "ait_real_lookalike_inside_attack_window",
+  "_provenance": {
+   "ait_scenario": "santos",
+   "row": 108863,
+   "time": 1642418506,
+   "short": "W-Acc-400",
+   "time_label": "service_scans",
+   "event_label": "-",
+   "note": "Truth from AIT-ADS per-event labels; evidence map by the fixed LR rule above."
+  },
+  "trigger": "Wazuh: Web server 400 error code. on host cloud_share (IP in alert: 172.21.128.54).",
+  "initial_evidence": [
+   "Detector family: Wazuh",
+   "Host name: cloud_share",
+   "Environment: small enterprise network (web, mail, file share, VPN, DNS, firewall, monitoring)"
+  ],
+  "queries": {
+   "Q1": {
+    "description": "Count other alerts from the same host in the 10 minutes before and after this alert",
+    "outcomes": [
+     "none",
+     "1_to_20",
+     "more_than_20"
+    ],
+    "reference_outcome": "1_to_20",
+    "diagnostic": true,
+    "lr_toward_truth": 2.713,
+    "cost": 1
+   },
+   "Q2": {
+    "description": "Check how often this alert type fired on this host in the previous 24 hours",
+    "outcomes": [
+     "never",
+     "1_to_10_times",
+     "more_than_10_times"
+    ],
+    "reference_outcome": "never",
+    "diagnostic": false,
+    "lr_toward_truth": 0.332,
+    "cost": 2
+   },
+   "Q3": {
+    "description": "Check whether a different detector family (Wazuh, Suricata or AMiner) alerted on this host within 10 minutes",
+    "outcomes": [
+     "yes",
+     "no"
+    ],
+    "reference_outcome": "yes",
+    "diagnostic": false,
+    "lr_toward_truth": 0.938,
+    "cost": 1
+   },
+   "Q4": {
+    "description": "Check whether the same alert type fired on other hosts within 30 minutes",
+    "outcomes": [
+     "only_this_host",
+     "other_hosts_too"
+    ],
+    "reference_outcome": "other_hosts_too",
+    "diagnostic": false,
+    "lr_toward_truth": 1.345,
+    "cost": 1
+   },
+   "Q5": {
+    "description": "Check whether the same IP address appears in alerts on other hosts within 30 minutes",
+    "outcomes": [
+     "yes",
+     "no"
+    ],
+    "reference_outcome": "no",
+    "diagnostic": false,
+    "lr_toward_truth": 1.0,
+    "cost": 1
+   },
+   "Q6": {
+    "description": "Check whether this host raised alert types it had not raised in the previous 24 hours, within 30 minutes of this alert",
+    "outcomes": [
+     "yes",
+     "no"
+    ],
+    "reference_outcome": "yes",
+    "diagnostic": false,
+    "lr_toward_truth": 0.283,
+    "cost": 2
+   },
+   "Q7": {
+    "description": "Count distinct alert types on this host within 10 minutes of this alert",
+    "outcomes": [
+     "one",
+     "two_to_four",
+     "five_or_more"
+    ],
+    "reference_outcome": "five_or_more",
+    "diagnostic": false,
+    "lr_toward_truth": 0.684,
+    "cost": 1
+   },
+   "Q8": {
+    "description": "Check whether the alert fired outside business hours (08:00-18:00 UTC)",
+    "outcomes": [
+     "business_hours",
+     "outside_business_hours"
+    ],
+    "reference_outcome": "business_hours",
+    "diagnostic": false,
+    "lr_toward_truth": 1.282,
+    "cost": 1
+   }
+  },
+  "states": [
+   {
+    "id": "s0",
+    "observed": []
+   },
+   {
+    "id": "s1",
+    "observed": [
+     "Q8"
+    ]
+   }
+  ]
+ },
+ {
+  "id": "AIT-11",
+  "validated": true,
+  "truth": "malicious",
+  "case_type": "ait_real_escalated_sudo_command",
+  "_provenance": {
+   "ait_scenario": "wilson",
+   "row": 590163,
+   "time": 1644234531,
+   "short": "W-Aut-Pam1",
+   "time_label": "privilege_escalation",
+   "event_label": "escalated_sudo_command",
+   "note": "Truth from AIT-ADS per-event labels; evidence map by the fixed LR rule above."
+  },
+  "trigger": "Wazuh: PAM: Login session closed. on host intranet_server (IP in alert: 172.26.243.167).",
+  "initial_evidence": [
+   "Detector family: Wazuh",
+   "Host name: intranet_server",
+   "Environment: small enterprise network (web, mail, file share, VPN, DNS, firewall, monitoring)"
+  ],
+  "queries": {
+   "Q1": {
+    "description": "Count other alerts from the same host in the 10 minutes before and after this alert",
+    "outcomes": [
+     "none",
+     "1_to_20",
+     "more_than_20"
+    ],
+    "reference_outcome": "more_than_20",
+    "diagnostic": false,
+    "lr_toward_truth": 1.069,
+    "cost": 1
+   },
+   "Q2": {
+    "description": "Check how often this alert type fired on this host in the previous 24 hours",
+    "outcomes": [
+     "never",
+     "1_to_10_times",
+     "more_than_10_times"
+    ],
+    "reference_outcome": "1_to_10_times",
+    "diagnostic": false,
+    "lr_toward_truth": 0.964,
+    "cost": 2
+   },
+   "Q3": {
+    "description": "Check whether a different detector family (Wazuh, Suricata or AMiner) alerted on this host within 10 minutes",
+    "outcomes": [
+     "yes",
+     "no"
+    ],
+    "reference_outcome": "yes",
+    "diagnostic": false,
+    "lr_toward_truth": 1.07,
+    "cost": 1
+   },
+   "Q4": {
+    "description": "Check whether the same alert type fired on other hosts within 30 minutes",
+    "outcomes": [
+     "only_this_host",
+     "other_hosts_too"
+    ],
+    "reference_outcome": "only_this_host",
+    "diagnostic": true,
+    "lr_toward_truth": 2.942,
+    "cost": 1
+   },
+   "Q5": {
+    "description": "Check whether the same IP address appears in alerts on other hosts within 30 minutes",
+    "outcomes": [
+     "yes",
+     "no"
+    ],
+    "reference_outcome": "no",
+    "diagnostic": false,
+    "lr_toward_truth": 1.0,
+    "cost": 1
+   },
+   "Q6": {
+    "description": "Check whether this host raised alert types it had not raised in the previous 24 hours, within 30 minutes of this alert",
+    "outcomes": [
+     "yes",
+     "no"
+    ],
+    "reference_outcome": "yes",
+    "diagnostic": true,
+    "lr_toward_truth": 3.235,
+    "cost": 2
+   },
+   "Q7": {
+    "description": "Count distinct alert types on this host within 10 minutes of this alert",
+    "outcomes": [
+     "one",
+     "two_to_four",
+     "five_or_more"
+    ],
+    "reference_outcome": "five_or_more",
+    "diagnostic": false,
+    "lr_toward_truth": 1.453,
+    "cost": 1
+   },
+   "Q8": {
+    "description": "Check whether the alert fired outside business hours (08:00-18:00 UTC)",
+    "outcomes": [
+     "business_hours",
+     "outside_business_hours"
+    ],
+    "reference_outcome": "business_hours",
+    "diagnostic": false,
+    "lr_toward_truth": 0.765,
+    "cost": 1
+   }
+  },
+  "states": [
+   {
+    "id": "s0",
+    "observed": []
+   },
+   {
+    "id": "s1",
+    "observed": [
+     "Q8"
+    ]
+   }
+  ]
+ },
+ {
+  "id": "AIT-12",
+  "validated": true,
+  "truth": "malicious",
+  "case_type": "ait_real_attacker_change_user",
+  "_provenance": {
+   "ait_scenario": "santos",
+   "row": 120839,
+   "time": 1642420697,
+   "short": "A-Aud-Com3",
+   "time_label": "privilege_escalation",
+   "event_label": "attacker_change_user",
+   "note": "Truth from AIT-ADS per-event labels; evidence map by the fixed LR rule above."
+  },
+  "trigger": "AMiner: New login parameter combination in Audit logs. on host intranet_server (IP in alert: 192.168.104.155).",
+  "initial_evidence": [
+   "Detector family: AMiner",
+   "Host name: intranet_server",
+   "Environment: small enterprise network (web, mail, file share, VPN, DNS, firewall, monitoring)"
+  ],
+  "queries": {
+   "Q1": {
+    "description": "Count other alerts from the same host in the 10 minutes before and after this alert",
+    "outcomes": [
+     "none",
+     "1_to_20",
+     "more_than_20"
+    ],
+    "reference_outcome": "more_than_20",
+    "diagnostic": false,
+    "lr_toward_truth": 1.061,
+    "cost": 1
+   },
+   "Q2": {
+    "description": "Check how often this alert type fired on this host in the previous 24 hours",
+    "outcomes": [
+     "never",
+     "1_to_10_times",
+     "more_than_10_times"
+    ],
+    "reference_outcome": "never",
+    "diagnostic": true,
+    "lr_toward_truth": 3.011,
+    "cost": 2
+   },
+   "Q3": {
+    "description": "Check whether a different detector family (Wazuh, Suricata or AMiner) alerted on this host within 10 minutes",
+    "outcomes": [
+     "yes",
+     "no"
+    ],
+    "reference_outcome": "yes",
+    "diagnostic": false,
+    "lr_toward_truth": 1.067,
+    "cost": 1
+   },
+   "Q4": {
+    "description": "Check whether the same alert type fired on other hosts within 30 minutes",
+    "outcomes": [
+     "only_this_host",
+     "other_hosts_too"
+    ],
+    "reference_outcome": "only_this_host",
+    "diagnostic": true,
+    "lr_toward_truth": 3.033,
+    "cost": 1
+   },
+   "Q5": {
+    "description": "Check whether the same IP address appears in alerts on other hosts within 30 minutes",
+    "outcomes": [
+     "yes",
+     "no"
+    ],
+    "reference_outcome": "no",
+    "diagnostic": false,
+    "lr_toward_truth": 1.0,
+    "cost": 1
+   },
+   "Q6": {
+    "description": "Check whether this host raised alert types it had not raised in the previous 24 hours, within 30 minutes of this alert",
+    "outcomes": [
+     "yes",
+     "no"
+    ],
+    "reference_outcome": "yes",
+    "diagnostic": true,
+    "lr_toward_truth": 3.528,
+    "cost": 2
+   },
+   "Q7": {
+    "description": "Count distinct alert types on this host within 10 minutes of this alert",
+    "outcomes": [
+     "one",
+     "two_to_four",
+     "five_or_more"
+    ],
+    "reference_outcome": "five_or_more",
+    "diagnostic": false,
+    "lr_toward_truth": 1.462,
+    "cost": 1
+   },
+   "Q8": {
+    "description": "Check whether the alert fired outside business hours (08:00-18:00 UTC)",
+    "outcomes": [
+     "business_hours",
+     "outside_business_hours"
+    ],
+    "reference_outcome": "business_hours",
+    "diagnostic": false,
+    "lr_toward_truth": 0.78,
+    "cost": 1
+   }
+  },
+  "states": [
+   {
+    "id": "s0",
+    "observed": []
+   },
+   {
+    "id": "s1",
+    "observed": [
+     "Q8"
+    ]
+   }
+  ]
+ },
+ {
+  "id": "AIT-13",
+  "validated": true,
+  "truth": "benign",
+  "case_type": "ait_real_lookalike_routine",
+  "_provenance": {
+   "ait_scenario": "harrison",
+   "row": 5087,
+   "time": 1643952531,
+   "short": "A-Dns-Val1",
+   "time_label": "false_positive",
+   "event_label": "-",
+   "note": "Truth from AIT-ADS per-event labels; evidence map by the fixed LR rule above."
+  },
+  "trigger": "AMiner: New ip address in DNS logs. on host inet-firewall (IP in alert: 192.168.128.1).",
+  "initial_evidence": [
+   "Detector family: AMiner",
+   "Host name: inet-firewall",
+   "Environment: small enterprise network (web, mail, file share, VPN, DNS, firewall, monitoring)"
+  ],
+  "queries": {
+   "Q1": {
+    "description": "Count other alerts from the same host in the 10 minutes before and after this alert",
+    "outcomes": [
+     "none",
+     "1_to_20",
+     "more_than_20"
+    ],
+    "reference_outcome": "more_than_20",
+    "diagnostic": false,
+    "lr_toward_truth": 0.939,
+    "cost": 1
+   },
+   "Q2": {
+    "description": "Check how often this alert type fired on this host in the previous 24 hours",
+    "outcomes": [
+     "never",
+     "1_to_10_times",
+     "more_than_10_times"
+    ],
+    "reference_outcome": "1_to_10_times",
+    "diagnostic": false,
+    "lr_toward_truth": 1.003,
+    "cost": 2
+   },
+   "Q3": {
+    "description": "Check whether a different detector family (Wazuh, Suricata or AMiner) alerted on this host within 10 minutes",
+    "outcomes": [
+     "yes",
+     "no"
+    ],
+    "reference_outcome": "yes",
+    "diagnostic": false,
+    "lr_toward_truth": 0.937,
+    "cost": 1
+   },
+   "Q4": {
+    "description": "Check whether the same alert type fired on other hosts within 30 minutes",
+    "outcomes": [
+     "only_this_host",
+     "other_hosts_too"
+    ],
+    "reference_outcome": "other_hosts_too",
+    "diagnostic": false,
+    "lr_toward_truth": 1.294,
+    "cost": 1
+   },
+   "Q5": {
+    "description": "Check whether the same IP address appears in alerts on other hosts within 30 minutes",
+    "outcomes": [
+     "yes",
+     "no"
+    ],
+    "reference_outcome": "no",
+    "diagnostic": false,
+    "lr_toward_truth": 1.0,
+    "cost": 1
+   },
+   "Q6": {
+    "description": "Check whether this host raised alert types it had not raised in the previous 24 hours, within 30 minutes of this alert",
+    "outcomes": [
+     "yes",
+     "no"
+    ],
+    "reference_outcome": "yes",
+    "diagnostic": false,
+    "lr_toward_truth": 0.296,
+    "cost": 2
+   },
+   "Q7": {
+    "description": "Count distinct alert types on this host within 10 minutes of this alert",
+    "outcomes": [
+     "one",
+     "two_to_four",
+     "five_or_more"
+    ],
+    "reference_outcome": "five_or_more",
+    "diagnostic": false,
+    "lr_toward_truth": 0.698,
+    "cost": 1
+   },
+   "Q8": {
+    "description": "Check whether the alert fired outside business hours (08:00-18:00 UTC)",
+    "outcomes": [
+     "business_hours",
+     "outside_business_hours"
+    ],
+    "reference_outcome": "outside_business_hours",
+    "diagnostic": false,
+    "lr_toward_truth": 0.804,
+    "cost": 1
+   }
+  },
+  "states": [
+   {
+    "id": "s0",
+    "observed": []
+   },
+   {
+    "id": "s1",
+    "observed": [
+     "Q8"
+    ]
+   }
+  ]
+ },
+ {
+  "id": "AIT-14",
+  "validated": true,
+  "truth": "benign",
+  "case_type": "ait_real_lookalike_inside_attack_window",
+  "_provenance": {
+   "ait_scenario": "russellmitchell",
+   "row": 26131,
+   "time": 1642996638,
+   "short": "W-Err-Fbd2",
+   "time_label": "service_scans",
+   "event_label": "-",
+   "note": "Truth from AIT-ADS per-event labels; evidence map by the fixed LR rule above."
+  },
+  "trigger": "Wazuh: Apache: Attempt to access forbidden file or directory. on host webserver (IP in alert: 172.19.130.68).",
+  "initial_evidence": [
+   "Detector family: Wazuh",
+   "Host name: webserver",
+   "Environment: small enterprise network (web, mail, file share, VPN, DNS, firewall, monitoring)"
+  ],
+  "queries": {
+   "Q1": {
+    "description": "Count other alerts from the same host in the 10 minutes before and after this alert",
+    "outcomes": [
+     "none",
+     "1_to_20",
+     "more_than_20"
+    ],
+    "reference_outcome": "more_than_20",
+    "diagnostic": false,
+    "lr_toward_truth": 0.946,
+    "cost": 1
+   },
+   "Q2": {
+    "description": "Check how often this alert type fired on this host in the previous 24 hours",
+    "outcomes": [
+     "never",
+     "1_to_10_times",
+     "more_than_10_times"
+    ],
+    "reference_outcome": "more_than_10_times",
+    "diagnostic": false,
+    "lr_toward_truth": 1.074,
+    "cost": 2
+   },
+   "Q3": {
+    "description": "Check whether a different detector family (Wazuh, Suricata or AMiner) alerted on this host within 10 minutes",
+    "outcomes": [
+     "yes",
+     "no"
+    ],
+    "reference_outcome": "yes",
+    "diagnostic": false,
+    "lr_toward_truth": 0.938,
+    "cost": 1
+   },
+   "Q4": {
+    "description": "Check whether the same alert type fired on other hosts within 30 minutes",
+    "outcomes": [
+     "only_this_host",
+     "other_hosts_too"
+    ],
+    "reference_outcome": "other_hosts_too",
+    "diagnostic": false,
+    "lr_toward_truth": 1.332,
+    "cost": 1
+   },
+   "Q5": {
+    "description": "Check whether the same IP address appears in alerts on other hosts within 30 minutes",
+    "outcomes": [
+     "yes",
+     "no"
+    ],
+    "reference_outcome": "no",
+    "diagnostic": false,
+    "lr_toward_truth": 1.0,
+    "cost": 1
+   },
+   "Q6": {
+    "description": "Check whether this host raised alert types it had not raised in the previous 24 hours, within 30 minutes of this alert",
+    "outcomes": [
+     "yes",
+     "no"
+    ],
+    "reference_outcome": "yes",
+    "diagnostic": false,
+    "lr_toward_truth": 0.279,
+    "cost": 2
+   },
+   "Q7": {
+    "description": "Count distinct alert types on this host within 10 minutes of this alert",
+    "outcomes": [
+     "one",
+     "two_to_four",
+     "five_or_more"
+    ],
+    "reference_outcome": "five_or_more",
+    "diagnostic": false,
+    "lr_toward_truth": 0.743,
+    "cost": 1
+   },
+   "Q8": {
+    "description": "Check whether the alert fired outside business hours (08:00-18:00 UTC)",
+    "outcomes": [
+     "business_hours",
+     "outside_business_hours"
+    ],
+    "reference_outcome": "outside_business_hours",
+    "diagnostic": false,
+    "lr_toward_truth": 0.8,
+    "cost": 1
+   }
+  },
+  "states": [
+   {
+    "id": "s0",
+    "observed": []
+   },
+   {
+    "id": "s1",
+    "observed": [
+     "Q8"
+    ]
+   }
+  ]
+ },
+ {
+  "id": "AIT-15",
+  "validated": true,
+  "truth": "malicious",
+  "case_type": "ait_real_service_scan",
+  "_provenance": {
+   "ait_scenario": "fox",
+   "row": 36882,
+   "time": 1642508263,
+   "short": "W-Acc-400",
+   "time_label": "service_scans",
+   "event_label": "service_scan",
+   "note": "Truth from AIT-ADS per-event labels; evidence map by the fixed LR rule above."
+  },
+  "trigger": "Wazuh: Web server 400 error code. on host intranet_server (IP in alert: 10.35.35.206).",
+  "initial_evidence": [
+   "Detector family: Wazuh",
+   "Host name: intranet_server",
+   "Environment: small enterprise network (web, mail, file share, VPN, DNS, firewall, monitoring)"
+  ],
+  "queries": {
+   "Q1": {
+    "description": "Count other alerts from the same host in the 10 minutes before and after this alert",
+    "outcomes": [
+     "none",
+     "1_to_20",
+     "more_than_20"
+    ],
+    "reference_outcome": "more_than_20",
+    "diagnostic": false,
+    "lr_toward_truth": 1.067,
+    "cost": 1
+   },
+   "Q2": {
+    "description": "Check how often this alert type fired on this host in the previous 24 hours",
+    "outcomes": [
+     "never",
+     "1_to_10_times",
+     "more_than_10_times"
+    ],
+    "reference_outcome": "never",
+    "diagnostic": true,
+    "lr_toward_truth": 3.272,
+    "cost": 2
+   },
+   "Q3": {
+    "description": "Check whether a different detector family (Wazuh, Suricata or AMiner) alerted on this host within 10 minutes",
+    "outcomes": [
+     "yes",
+     "no"
+    ],
+    "reference_outcome": "yes",
+    "diagnostic": false,
+    "lr_toward_truth": 1.064,
+    "cost": 1
+   },
+   "Q4": {
+    "description": "Check whether the same alert type fired on other hosts within 30 minutes",
+    "outcomes": [
+     "only_this_host",
+     "other_hosts_too"
+    ],
+    "reference_outcome": "other_hosts_too",
+    "diagnostic": false,
+    "lr_toward_truth": 0.737,
+    "cost": 1
+   },
+   "Q5": {
+    "description": "Check whether the same IP address appears in alerts on other hosts within 30 minutes",
+    "outcomes": [
+     "yes",
+     "no"
+    ],
+    "reference_outcome": "no",
+    "diagnostic": false,
+    "lr_toward_truth": 1.0,
+    "cost": 1
+   },
+   "Q6": {
+    "description": "Check whether this host raised alert types it had not raised in the previous 24 hours, within 30 minutes of this alert",
+    "outcomes": [
+     "yes",
+     "no"
+    ],
+    "reference_outcome": "yes",
+    "diagnostic": true,
+    "lr_toward_truth": 3.323,
+    "cost": 2
+   },
+   "Q7": {
+    "description": "Count distinct alert types on this host within 10 minutes of this alert",
+    "outcomes": [
+     "one",
+     "two_to_four",
+     "five_or_more"
+    ],
+    "reference_outcome": "five_or_more",
+    "diagnostic": false,
+    "lr_toward_truth": 1.367,
+    "cost": 1
+   },
+   "Q8": {
+    "description": "Check whether the alert fired outside business hours (08:00-18:00 UTC)",
+    "outcomes": [
+     "business_hours",
+     "outside_business_hours"
+    ],
+    "reference_outcome": "business_hours",
+    "diagnostic": false,
+    "lr_toward_truth": 0.761,
+    "cost": 1
+   }
+  },
+  "states": [
+   {
+    "id": "s0",
+    "observed": []
+   },
+   {
+    "id": "s1",
+    "observed": [
+     "Q8"
+    ]
+   }
+  ]
+ },
+ {
+  "id": "AIT-16",
+  "validated": true,
+  "truth": "malicious",
+  "case_type": "ait_real_dnsteal",
+  "_provenance": {
+   "ait_scenario": "shaw",
+   "row": 38819,
+   "time": 1643404081,
+   "short": "A-Aud-Com4",
+   "time_label": "service_stop",
+   "event_label": "dnsteal",
+   "note": "Truth from AIT-ADS per-event labels; evidence map by the fixed LR rule above."
+  },
+  "trigger": "AMiner: New service_start parameter combination in Audit logs. on host internal_share (IP in alert: 192.168.3.116).",
+  "initial_evidence": [
+   "Detector family: AMiner",
+   "Host name: internal_share",
+   "Environment: small enterprise network (web, mail, file share, VPN, DNS, firewall, monitoring)"
+  ],
+  "queries": {
+   "Q1": {
+    "description": "Count other alerts from the same host in the 10 minutes before and after this alert",
+    "outcomes": [
+     "none",
+     "1_to_20",
+     "more_than_20"
+    ],
+    "reference_outcome": "1_to_20",
+    "diagnostic": false,
+    "lr_toward_truth": 0.586,
+    "cost": 1
+   },
+   "Q2": {
+    "description": "Check how often this alert type fired on this host in the previous 24 hours",
+    "outcomes": [
+     "never",
+     "1_to_10_times",
+     "more_than_10_times"
+    ],
+    "reference_outcome": "never",
+    "diagnostic": true,
+    "lr_toward_truth": 6.14,
+    "cost": 2
+   },
+   "Q3": {
+    "description": "Check whether a different detector family (Wazuh, Suricata or AMiner) alerted on this host within 10 minutes",
+    "outcomes": [
+     "yes",
+     "no"
+    ],
+    "reference_outcome": "no",
+    "diagnostic": false,
+    "lr_toward_truth": 0.353,
+    "cost": 1
+   },
+   "Q4": {
+    "description": "Check whether the same alert type fired on other hosts within 30 minutes",
+    "outcomes": [
+     "only_this_host",
+     "other_hosts_too"
+    ],
+    "reference_outcome": "only_this_host",
+    "diagnostic": true,
+    "lr_toward_truth": 4.703,
+    "cost": 1
+   },
+   "Q5": {
+    "description": "Check whether the same IP address appears in alerts on other hosts within 30 minutes",
+    "outcomes": [
+     "yes",
+     "no"
+    ],
+    "reference_outcome": "no",
+    "diagnostic": false,
+    "lr_toward_truth": 1.0,
+    "cost": 1
+   },
+   "Q6": {
+    "description": "Check whether this host raised alert types it had not raised in the previous 24 hours, within 30 minutes of this alert",
+    "outcomes": [
+     "yes",
+     "no"
+    ],
+    "reference_outcome": "yes",
+    "diagnostic": true,
+    "lr_toward_truth": 3.577,
+    "cost": 2
+   },
+   "Q7": {
+    "description": "Count distinct alert types on this host within 10 minutes of this alert",
+    "outcomes": [
+     "one",
+     "two_to_four",
+     "five_or_more"
+    ],
+    "reference_outcome": "one",
+    "diagnostic": false,
+    "lr_toward_truth": 0.527,
+    "cost": 1
+   },
+   "Q8": {
+    "description": "Check whether the alert fired outside business hours (08:00-18:00 UTC)",
+    "outcomes": [
+     "business_hours",
+     "outside_business_hours"
+    ],
+    "reference_outcome": "outside_business_hours",
+    "diagnostic": false,
+    "lr_toward_truth": 1.947,
+    "cost": 1
+   }
+  },
+  "states": [
+   {
+    "id": "s0",
+    "observed": []
+   },
+   {
+    "id": "s1",
+    "observed": [
+     "Q8"
+    ]
+   }
+  ]
+ },
+ {
+  "id": "AIT-17",
+  "validated": true,
+  "truth": "benign",
+  "case_type": "ait_real_lookalike_inside_attack_window",
+  "_provenance": {
+   "ait_scenario": "shaw",
+   "row": 51655,
+   "time": 1643469552,
+   "short": "A-Aud-Com6",
+   "time_label": "cracking",
+   "event_label": "-",
+   "note": "Truth from AIT-ADS per-event labels; evidence map by the fixed LR rule above."
+  },
+  "trigger": "AMiner: New user_acct parameter combination in Audit logs. on host mail (IP in alert: 10.38.242.195).",
+  "initial_evidence": [
+   "Detector family: AMiner",
+   "Host name: mail",
+   "Environment: small enterprise network (web, mail, file share, VPN, DNS, firewall, monitoring)"
+  ],
+  "queries": {
+   "Q1": {
+    "description": "Count other alerts from the same host in the 10 minutes before and after this alert",
+    "outcomes": [
+     "none",
+     "1_to_20",
+     "more_than_20"
+    ],
+    "reference_outcome": "more_than_20",
+    "diagnostic": false,
+    "lr_toward_truth": 0.981,
+    "cost": 1
+   },
+   "Q2": {
+    "description": "Check how often this alert type fired on this host in the previous 24 hours",
+    "outcomes": [
+     "never",
+     "1_to_10_times",
+     "more_than_10_times"
+    ],
+    "reference_outcome": "1_to_10_times",
+    "diagnostic": false,
+    "lr_toward_truth": 0.496,
+    "cost": 2
+   },
+   "Q3": {
+    "description": "Check whether a different detector family (Wazuh, Suricata or AMiner) alerted on this host within 10 minutes",
+    "outcomes": [
+     "yes",
+     "no"
+    ],
+    "reference_outcome": "yes",
+    "diagnostic": false,
+    "lr_toward_truth": 0.979,
+    "cost": 1
+   },
+   "Q4": {
+    "description": "Check whether the same alert type fired on other hosts within 30 minutes",
+    "outcomes": [
+     "only_this_host",
+     "other_hosts_too"
+    ],
+    "reference_outcome": "other_hosts_too",
+    "diagnostic": false,
+    "lr_toward_truth": 1.373,
+    "cost": 1
+   },
+   "Q5": {
+    "description": "Check whether the same IP address appears in alerts on other hosts within 30 minutes",
+    "outcomes": [
+     "yes",
+     "no"
+    ],
+    "reference_outcome": "no",
+    "diagnostic": false,
+    "lr_toward_truth": 1.0,
+    "cost": 1
+   },
+   "Q6": {
+    "description": "Check whether this host raised alert types it had not raised in the previous 24 hours, within 30 minutes of this alert",
+    "outcomes": [
+     "yes",
+     "no"
+    ],
+    "reference_outcome": "no",
+    "diagnostic": true,
+    "lr_toward_truth": 7.699,
+    "cost": 2
+   },
+   "Q7": {
+    "description": "Count distinct alert types on this host within 10 minutes of this alert",
+    "outcomes": [
+     "one",
+     "two_to_four",
+     "five_or_more"
+    ],
+    "reference_outcome": "two_to_four",
+    "diagnostic": true,
+    "lr_toward_truth": 3.587,
+    "cost": 1
+   },
+   "Q8": {
+    "description": "Check whether the alert fired outside business hours (08:00-18:00 UTC)",
+    "outcomes": [
+     "business_hours",
+     "outside_business_hours"
+    ],
+    "reference_outcome": "business_hours",
+    "diagnostic": false,
+    "lr_toward_truth": 1.364,
+    "cost": 1
+   }
+  },
+  "states": [
+   {
+    "id": "s0",
+    "observed": []
+   },
+   {
+    "id": "s1",
+    "observed": [
+     "Q8"
+    ]
+   }
+  ]
+ },
+ {
+  "id": "AIT-18",
+  "validated": true,
+  "truth": "malicious",
+  "case_type": "ait_real_dns_scan",
+  "_provenance": {
+   "ait_scenario": "shaw",
+   "row": 44958,
+   "time": 1643467034,
+   "short": "A-Dns-Chr",
+   "time_label": "network_scans",
+   "event_label": "dns_scan",
+   "note": "Truth from AIT-ADS per-event labels; evidence map by the fixed LR rule above."
+  },
+  "trigger": "AMiner: New characters in DNS domain. on host inet-firewall (IP in alert: 172.27.180.4).",
+  "initial_evidence": [
+   "Detector family: AMiner",
+   "Host name: inet-firewall",
+   "Environment: small enterprise network (web, mail, file share, VPN, DNS, firewall, monitoring)"
+  ],
+  "queries": {
+   "Q1": {
+    "description": "Count other alerts from the same host in the 10 minutes before and after this alert",
+    "outcomes": [
+     "none",
+     "1_to_20",
+     "more_than_20"
+    ],
+    "reference_outcome": "more_than_20",
+    "diagnostic": false,
+    "lr_toward_truth": 1.02,
+    "cost": 1
+   },
+   "Q2": {
+    "description": "Check how often this alert type fired on this host in the previous 24 hours",
+    "outcomes": [
+     "never",
+     "1_to_10_times",
+     "more_than_10_times"
+    ],
+    "reference_outcome": "more_than_10_times",
+    "diagnostic": false,
+    "lr_toward_truth": 0.871,
+    "cost": 2
+   },
+   "Q3": {
+    "description": "Check whether a different detector family (Wazuh, Suricata or AMiner) alerted on this host within 10 minutes",
+    "outcomes": [
+     "yes",
+     "no"
+    ],
+    "reference_outcome": "yes",
+    "diagnostic": false,
+    "lr_toward_truth": 1.021,
+    "cost": 1
+   },
+   "Q4": {
+    "description": "Check whether the same alert type fired on other hosts within 30 minutes",
+    "outcomes": [
+     "only_this_host",
+     "other_hosts_too"
+    ],
+    "reference_outcome": "only_this_host",
+    "diagnostic": true,
+    "lr_toward_truth": 4.703,
+    "cost": 1
+   },
+   "Q5": {
+    "description": "Check whether the same IP address appears in alerts on other hosts within 30 minutes",
+    "outcomes": [
+     "yes",
+     "no"
+    ],
+    "reference_outcome": "no",
+    "diagnostic": false,
+    "lr_toward_truth": 1.0,
+    "cost": 1
+   },
+   "Q6": {
+    "description": "Check whether this host raised alert types it had not raised in the previous 24 hours, within 30 minutes of this alert",
+    "outcomes": [
+     "yes",
+     "no"
+    ],
+    "reference_outcome": "no",
+    "diagnostic": false,
+    "lr_toward_truth": 0.13,
+    "cost": 2
+   },
+   "Q7": {
+    "description": "Count distinct alert types on this host within 10 minutes of this alert",
+    "outcomes": [
+     "one",
+     "two_to_four",
+     "five_or_more"
+    ],
+    "reference_outcome": "five_or_more",
+    "diagnostic": false,
+    "lr_toward_truth": 1.336,
+    "cost": 1
+   },
+   "Q8": {
+    "description": "Check whether the alert fired outside business hours (08:00-18:00 UTC)",
+    "outcomes": [
+     "business_hours",
+     "outside_business_hours"
+    ],
+    "reference_outcome": "business_hours",
+    "diagnostic": false,
+    "lr_toward_truth": 0.733,
+    "cost": 1
+   }
+  },
+  "states": [
+   {
+    "id": "s0",
+    "observed": []
+   },
+   {
+    "id": "s1",
+    "observed": [
+     "Q8"
+    ]
+   }
+  ]
+ },
+ {
+  "id": "AIT-19",
+  "validated": true,
+  "truth": "benign",
+  "case_type": "ait_real_lookalike_routine",
+  "_provenance": {
+   "ait_scenario": "fox",
+   "row": 461699,
+   "time": 1642543238,
+   "short": "A-Acc-Clc",
+   "time_label": "false_positive",
+   "event_label": "-",
+   "note": "Truth from AIT-ADS per-event labels; evidence map by the fixed LR rule above."
+  },
+  "trigger": "AMiner: Unusual occurrence frequencies of Apache Access request methods. on host taylorcruz_mail (IP in alert: 192.168.128.195).",
+  "initial_evidence": [
+   "Detector family: AMiner",
+   "Host name: taylorcruz_mail",
+   "Environment: small enterprise network (web, mail, file share, VPN, DNS, firewall, monitoring)"
+  ],
+  "queries": {
+   "Q1": {
+    "description": "Count other alerts from the same host in the 10 minutes before and after this alert",
+    "outcomes": [
+     "none",
+     "1_to_20",
+     "more_than_20"
+    ],
+    "reference_outcome": "more_than_20",
+    "diagnostic": false,
+    "lr_toward_truth": 0.937,
+    "cost": 1
+   },
+   "Q2": {
+    "description": "Check how often this alert type fired on this host in the previous 24 hours",
+    "outcomes": [
+     "never",
+     "1_to_10_times",
+     "more_than_10_times"
+    ],
+    "reference_outcome": "1_to_10_times",
+    "diagnostic": false,
+    "lr_toward_truth": 0.9,
+    "cost": 2
+   },
+   "Q3": {
+    "description": "Check whether a different detector family (Wazuh, Suricata or AMiner) alerted on this host within 10 minutes",
+    "outcomes": [
+     "yes",
+     "no"
+    ],
+    "reference_outcome": "yes",
+    "diagnostic": false,
+    "lr_toward_truth": 0.94,
+    "cost": 1
+   },
+   "Q4": {
+    "description": "Check whether the same alert type fired on other hosts within 30 minutes",
+    "outcomes": [
+     "only_this_host",
+     "other_hosts_too"
+    ],
+    "reference_outcome": "only_this_host",
+    "diagnostic": false,
+    "lr_toward_truth": 0.281,
+    "cost": 1
+   },
+   "Q5": {
+    "description": "Check whether the same IP address appears in alerts on other hosts within 30 minutes",
+    "outcomes": [
+     "yes",
+     "no"
+    ],
+    "reference_outcome": "no",
+    "diagnostic": false,
+    "lr_toward_truth": 1.0,
+    "cost": 1
+   },
+   "Q6": {
+    "description": "Check whether this host raised alert types it had not raised in the previous 24 hours, within 30 minutes of this alert",
+    "outcomes": [
+     "yes",
+     "no"
+    ],
+    "reference_outcome": "no",
+    "diagnostic": true,
+    "lr_toward_truth": 7.315,
+    "cost": 2
+   },
+   "Q7": {
+    "description": "Count distinct alert types on this host within 10 minutes of this alert",
+    "outcomes": [
+     "one",
+     "two_to_four",
+     "five_or_more"
+    ],
+    "reference_outcome": "two_to_four",
+    "diagnostic": true,
+    "lr_toward_truth": 3.47,
+    "cost": 1
+   },
+   "Q8": {
+    "description": "Check whether the alert fired outside business hours (08:00-18:00 UTC)",
+    "outcomes": [
+     "business_hours",
+     "outside_business_hours"
+    ],
+    "reference_outcome": "outside_business_hours",
+    "diagnostic": false,
+    "lr_toward_truth": 0.582,
+    "cost": 1
+   }
+  },
+  "states": [
+   {
+    "id": "s0",
+    "observed": []
+   },
+   {
+    "id": "s1",
+    "observed": [
+     "Q8"
+    ]
+   }
+  ]
+ },
+ {
+  "id": "AIT-20",
+  "validated": true,
+  "truth": "benign",
+  "case_type": "ait_real_lookalike_routine",
+  "_provenance": {
+   "ait_scenario": "wardbeck",
+   "row": 394,
+   "time": 1642569498,
+   "short": "A-Acc-Chr2",
+   "time_label": "false_positive",
+   "event_label": "-",
+   "note": "Truth from AIT-ADS per-event labels; evidence map by the fixed LR rule above."
+  },
+  "trigger": "AMiner: New characters in Apache Access request. on host webserver (IP in alert: 10.132.57.136).",
+  "initial_evidence": [
+   "Detector family: AMiner",
+   "Host name: webserver",
+   "Environment: small enterprise network (web, mail, file share, VPN, DNS, firewall, monitoring)"
+  ],
+  "queries": {
+   "Q1": {
+    "description": "Count other alerts from the same host in the 10 minutes before and after this alert",
+    "outcomes": [
+     "none",
+     "1_to_20",
+     "more_than_20"
+    ],
+    "reference_outcome": "more_than_20",
+    "diagnostic": false,
+    "lr_toward_truth": 0.945,
+    "cost": 1
+   },
+   "Q2": {
+    "description": "Check how often this alert type fired on this host in the previous 24 hours",
+    "outcomes": [
+     "never",
+     "1_to_10_times",
+     "more_than_10_times"
+    ],
+    "reference_outcome": "never",
+    "diagnostic": false,
+    "lr_toward_truth": 0.331,
+    "cost": 2
+   },
+   "Q3": {
+    "description": "Check whether a different detector family (Wazuh, Suricata or AMiner) alerted on this host within 10 minutes",
+    "outcomes": [
+     "yes",
+     "no"
+    ],
+    "reference_outcome": "no",
+    "diagnostic": true,
+    "lr_toward_truth": 6.353,
+    "cost": 1
+   },
+   "Q4": {
+    "description": "Check whether the same alert type fired on other hosts within 30 minutes",
+    "outcomes": [
+     "only_this_host",
+     "other_hosts_too"
+    ],
+    "reference_outcome": "only_this_host",
+    "diagnostic": false,
+    "lr_toward_truth": 0.318,
+    "cost": 1
+   },
+   "Q5": {
+    "description": "Check whether the same IP address appears in alerts on other hosts within 30 minutes",
+    "outcomes": [
+     "yes",
+     "no"
+    ],
+    "reference_outcome": "no",
+    "diagnostic": false,
+    "lr_toward_truth": 1.0,
+    "cost": 1
+   },
+   "Q6": {
+    "description": "Check whether this host raised alert types it had not raised in the previous 24 hours, within 30 minutes of this alert",
+    "outcomes": [
+     "yes",
+     "no"
+    ],
+    "reference_outcome": "yes",
+    "diagnostic": false,
+    "lr_toward_truth": 0.294,
+    "cost": 2
+   },
+   "Q7": {
+    "description": "Count distinct alert types on this host within 10 minutes of this alert",
+    "outcomes": [
+     "one",
+     "two_to_four",
+     "five_or_more"
+    ],
+    "reference_outcome": "five_or_more",
+    "diagnostic": false,
+    "lr_toward_truth": 0.716,
+    "cost": 1
+   },
+   "Q8": {
+    "description": "Check whether the alert fired outside business hours (08:00-18:00 UTC)",
+    "outcomes": [
+     "business_hours",
+     "outside_business_hours"
+    ],
+    "reference_outcome": "outside_business_hours",
+    "diagnostic": false,
+    "lr_toward_truth": 0.576,
+    "cost": 1
+   }
+  },
+  "states": [
+   {
+    "id": "s0",
+    "observed": []
+   },
+   {
+    "id": "s1",
+    "observed": [
+     "Q8"
+    ]
+   }
+  ]
+ }
+]

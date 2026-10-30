@@ -1,0 +1,158 @@
+{
+ "$defs": {
+  "CompatiblePair": {
+   "additionalProperties": false,
+   "properties": {
+    "a": {
+     "title": "A",
+     "type": "string"
+    },
+    "b": {
+     "title": "B",
+     "type": "string"
+    }
+   },
+   "required": [
+    "a",
+    "b"
+   ],
+   "title": "CompatiblePair",
+   "type": "object"
+  },
+  "Hypothesis": {
+   "additionalProperties": false,
+   "properties": {
+    "id": {
+     "title": "Id",
+     "type": "string"
+    },
+    "label": {
+     "enum": [
+      "malicious",
+      "benign"
+     ],
+     "title": "Label",
+     "type": "string"
+    },
+    "description": {
+     "title": "Description",
+     "type": "string"
+    },
+    "prior": {
+     "title": "Prior",
+     "type": "number"
+    }
+   },
+   "required": [
+    "id",
+    "label",
+    "description",
+    "prior"
+   ],
+   "title": "Hypothesis",
+   "type": "object"
+  },
+  "OutcomeProb": {
+   "additionalProperties": false,
+   "properties": {
+    "outcome": {
+     "title": "Outcome",
+     "type": "string"
+    },
+    "probability": {
+     "title": "Probability",
+     "type": "number"
+    }
+   },
+   "required": [
+    "outcome",
+    "probability"
+   ],
+   "title": "OutcomeProb",
+   "type": "object"
+  },
+  "Prediction": {
+   "additionalProperties": false,
+   "properties": {
+    "query_id": {
+     "title": "Query Id",
+     "type": "string"
+    },
+    "hypothesis_id": {
+     "title": "Hypothesis Id",
+     "type": "string"
+    },
+    "outcome_probs": {
+     "items": {
+      "$ref": "#/$defs/OutcomeProb"
+     },
+     "title": "Outcome Probs",
+     "type": "array"
+    }
+   },
+   "required": [
+    "query_id",
+    "hypothesis_id",
+    "outcome_probs"
+   ],
+   "title": "Prediction",
+   "type": "object"
+  },
+  "Retired": {
+   "additionalProperties": false,
+   "properties": {
+    "id": {
+     "title": "Id",
+     "type": "string"
+    },
+    "rationale": {
+     "title": "Rationale",
+     "type": "string"
+    }
+   },
+   "required": [
+    "id",
+    "rationale"
+   ],
+   "title": "Retired",
+   "type": "object"
+  }
+ },
+ "additionalProperties": false,
+ "properties": {
+  "hypotheses": {
+   "items": {
+    "$ref": "#/$defs/Hypothesis"
+   },
+   "title": "Hypotheses",
+   "type": "array"
+  },
+  "predictions": {
+   "items": {
+    "$ref": "#/$defs/Prediction"
+   },
+   "title": "Predictions",
+   "type": "array"
+  },
+  "retired": {
+   "items": {
+    "$ref": "#/$defs/Retired"
+   },
+   "title": "Retired",
+   "type": "array"
+  },
+  "compatible_pairs": {
+   "items": {
+    "$ref": "#/$defs/CompatiblePair"
+   },
+   "title": "Compatible Pairs",
+   "type": "array"
+  }
+ },
+ "required": [
+  "hypotheses",
+  "predictions"
+ ],
+ "title": "HypothesisReport",
+ "type": "object"
+}
