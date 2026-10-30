@@ -1,1 +1,0 @@
-{"scenario": "SC-01", "state": "s0", "rep": 0, "error": "API rejected the request: Error code: 401 - {'type': 'error', 'error': {'type': 'authentication_error', 'message': 'invalid x-api-key'}, 'request_id': 'req_011CgEnLqoYuS1Hme9t7EjRu'}", "cost_usd": 0.0}
